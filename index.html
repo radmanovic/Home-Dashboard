@@ -55,25 +55,36 @@ small,.mut{color:var(--mut);font-weight:400}
 .day small{font-size:2.1vh}.day i{display:block;font-style:normal;font-size:4.2vh;margin:.3vh 0}.day b{display:block;font-size:2.5vh;font-weight:500}.day em{font-style:normal;color:var(--mut);font-size:2.2vh}
 .card{flex:1;min-height:0;display:flex;gap:1.6vw;background:rgba(255,255,255,.66);border-radius:2.2vh;padding:1.5vh;text-decoration:none;color:var(--tx);overflow:hidden}
 .ph{flex:0 0 41%;border-radius:1.5vh;overflow:hidden;background:#d5e5ea;position:relative;display:flex;align-items:center;justify-content:center;font-size:9vh}
-.a .ph{background:#e4defa}
+.card[data-c=biz] .ph{background:#f6e8c8}.card[data-c=svet] .ph{background:#d3e4f6}.card[data-c=inov] .ph{background:#e4defa}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
 .ph img.ok{opacity:1;animation:kb 16s linear forwards}
 .tx{flex:1;min-width:0;display:flex;flex-direction:column;padding:.4vh 0}
 .chip{align-self:flex-start;font-size:2vh;font-weight:500;padding:.4vh 1.3vh;border-radius:3vh;background:#cfe8e4;color:#1d6a60}
-.a .chip{background:#e0d9f7;color:#5a43a8}
-.hl{font-size:3vh;line-height:1.25;font-weight:500;margin:1.1vh 0;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.mt{margin-top:auto;font-size:2.1vh;color:var(--mut)}
+.card[data-c=biz] .chip{background:#fbe5b8;color:#8a5a0a}.card[data-c=svet] .chip{background:#cfe3f7;color:#1f5a8f}.card[data-c=inov] .chip{background:#e0d9f7;color:#5a43a8}
+.hl{font-size:3vh;line-height:1.25;font-weight:500;margin:.9vh 0 .6vh;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.body{flex:1;min-height:0;overflow:hidden;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.bi{font-size:2.35vh;line-height:1.4;color:var(--tx);opacity:.82;padding-bottom:3.5vh;will-change:transform}
+.mt{margin-top:.6vh;font-size:2.1vh;color:var(--mut)}
 .dots{display:flex;gap:.5vh;margin-top:.8vh;height:.8vh}.dots i{flex:1;max-width:3vh;border-radius:1vh;background:rgba(44,58,70,.15)}.dots i.on{background:var(--sky)}
 .mh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.4vh}.mh small{font-size:2.4vh}
 #ywrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5vh}
 #ewrap{position:absolute;inset:0;background:#fff}
+#rcard{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 2.2vw;background:linear-gradient(135deg,#ffe6bd,#f6c7a0);animation:rise .6s both}
+#rcard .fm{font-size:15vh;font-weight:200;line-height:1;color:#9a5a0c;letter-spacing:-.03em}#rcard .fm small{font-size:3vh;margin-left:.5vw;color:#9a5a0c;opacity:.7}
+#rcard .eq{height:9vh;gap:.9vh}#rcard .eq span{width:1.5vh;background:#9a5a0c}
+.tabs{display:flex;gap:.6vw}
+.tabs button{border:0;border-radius:3vh;padding:.6vh 1.5vh;font:inherit;font-size:2.4vh;background:rgba(255,255,255,.55);color:var(--mut)}
+.tabs button.on{background:var(--gold);color:#fff}
+#trow{display:flex;align-items:center;gap:.8vw;margin:1vh 0}
+#trow button{border:0;border-radius:50%;width:3.8vh;height:3.8vh;background:rgba(255,255,255,.85);color:var(--gold);font-size:2.8vh;line-height:1;flex:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(--gold);outline-offset:.4vh}
 #ewrap iframe{width:100%;height:100%;border:0;display:block}
 .mh h2{font-size:3.4vh;font-weight:500}
 .eq{display:flex;gap:.5vh;align-items:flex-end;height:3vh}.eq span{width:.7vh;height:35%;border-radius:1vh;background:var(--gold)}
 .eq.on span{animation:eq 1s ease-in-out infinite}.eq.on span:nth-child(2){animation-delay:.25s}.eq.on span:nth-child(3){animation-delay:.5s}.eq.on span:nth-child(4){animation-delay:.12s}
 #pw{height:30vh;border-radius:1.8vh;overflow:hidden;background:#f3d9b8;position:relative}
 #pw iframe{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
-#ttl{font-size:2.3vh;color:var(--mut);margin:1vh 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ttl{flex:1;min-width:0;font-size:2.3vh;color:var(--mut);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ctl{display:flex;align-items:center;gap:1.2vw}
 .ctl button{border:0;border-radius:50%;width:6.2vh;height:6.2vh;background:rgba(255,255,255,.75);color:var(--tx);display:flex;align-items:center;justify-content:center;transition:transform .15s}
 .ctl button:active{transform:scale(.9)}.ctl #pp{width:7.4vh;height:7.4vh;background:var(--gold);color:#fff}
@@ -118,9 +129,9 @@ small,.mut{color:var(--mut);font-weight:400}
 </section>
 <section id="n"></section>
 <section id="m">
- <div class="mh"><h2 id="mh">Lofi radio</h2><div class="eq" id="eq"><span></span><span></span><span></span><span></span></div></div>
- <div id="pw"><div id="ywrap"><div id="yt"></div></div><div id="ewrap" hidden><iframe id="efr" title="TuneIn" allow="autoplay" scrolling="no"></iframe></div></div>
- <div id="ttl">Učitavanje playera…</div>
+ <div class="mh"><div class="tabs" id="tabs"><button data-g="lofi">Lofi</button><button data-g="radio">Radio</button><button data-g="knjige">Knjige</button></div><div class="eq" id="eq"><span></span><span></span><span></span><span></span></div></div>
+ <div id="pw"><div id="ywrap"><div id="yt"></div></div><div id="ewrap" hidden><iframe id="efr" title="Plejer" allow="autoplay" scrolling="no"></iframe></div><div id="rcard" hidden><div class="fm">98.3<small>FM</small></div><div class="eq" id="beq"><span></span><span></span><span></span><span></span></div></div></div>
+ <div id="trow"><div id="ttl">Učitavanje playera…</div><button id="addb" hidden aria-label="Dodaj knjigu">+</button><button id="delb" hidden aria-label="Ukloni knjigu">×</button></div>
  <div class="ctl">
   <button id="prev" aria-label="Prethodna"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
   <button id="pp" aria-label="Pusti ili pauziraj"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
@@ -132,19 +143,20 @@ small,.mut{color:var(--mut);font-weight:400}
 </section>
 </div>
 <script>
-/* STANICE (menjaju se dugmadima prethodna/sledeća). y = YouTube video ID, embed = adresa ugrađenog plejera (Tuninga Radio, TuneIn...).
-   Ako YouTube ne dozvoli ugrađivanje (greška 153), sve y stanice se same menjaju lofi radijom sa TuneIn-a. */
-const STATIONS=[
- {y:'jfKfPfyJRdk',name:'Lofi radio'},
- {embed:'https://tuningaradio.com/embed/pguvMnvD/',name:'Banker radio',sub:'Niš · 98.3 FM',url:'https://tuningaradio.com/en/stations/serbia/nis/banker-radio-nis-fm-98-3/'},
- {y:'4xDzrJKXOOY',name:'Synthwave radio'},
- {y:'5qap5aO4i9A',name:'Lofi sleep/chill'}];
-const LOFI_FALLBACK={embed:'https://tunein.com/embed/player/s352697/',name:'Lofi radio',sub:'lofi-radio.de',url:'https://tunein.com/radio/LOFI-RADIO-s352697'};
+/* PODEŠAVANJA */
+const LOFI=[{y:'jfKfPfyJRdk',name:'Lofi radio'},{y:'4xDzrJKXOOY',name:'Synthwave radio'},{y:'5qap5aO4i9A',name:'Lofi sleep/chill'}]; // YouTube ID-jevi
+const LOFI_FALLBACK={embed:'https://tunein.com/embed/player/s352697/',name:'Lofi radio',url:'https://tunein.com/radio/LOFI-RADIO-s352697'}; // koristi se ako YouTube ne dozvoli ugrađivanje
+const BANKER_STREAM='';   // ako znaš direktan link ka stream-u Banker radija, upiši ga ovde (ima prednost)
+const BANKER_PLS='https://radiobanker.rs/wp-content/uploads/bankerradio.pls';
+const BANKER_EMBED='https://tuningaradio.com/embed/pguvMnvD/'; // rezerva ako stream ne krene
+const BOOKS=[];           // audio knjige: {y:'VIDEO_ID',name:'Naslov'} ili {pl:'PLAYLIST_ID',name:'Naslov'}; mogu se dodati i u aplikaciji tasterom +
 const FEEDS={
- p:['https://www.kurir.rs/rss/vesti/politika','https://www.danas.rs/feed/','https://n1info.rs/feed/'],
- a:['https://techcrunch.com/category/artificial-intelligence/feed/','https://www.theverge.com/rss/ai-artificial-intelligence/index.xml']};
+ pol:['https://www.kurir.rs/rss/vesti/politika','https://www.danas.rs/feed/','https://n1info.rs/feed/'],
+ biz:['https://n1info.rs/biznis/feed/','https://www.danas.rs/vesti/ekonomija/feed/','https://feeds.bbci.co.uk/news/business/rss.xml'],
+ svet:['https://feeds.bbci.co.uk/serbian/lat/rss.xml','https://n1info.rs/svet/feed/'],
+ inov:['https://techcrunch.com/category/artificial-intelligence/feed/','https://www.theverge.com/rss/ai-artificial-intelligence/index.xml','https://www.technologyreview.com/feed/']};
 const POL=/skupštin|vlad[aeiu]|premijer|ministar|mandat|poslanik|sednic|kabinet|predsednik|konsultacij|izbor/i;
-const AIRE=/\bai\b|artificial|openai|anthropic|claude|chatgpt|gpt|gemini|llm|chatbot|nvidia|deepmind|robot|veštačk/i;
+const BLACK=/ubistv|ubi(o|la|li|jen|ce)\b|ubica|poginu|nastradal|saobra[ćc]ajn|nesre[ćc]|uhap[sš]|hapšenj|pucnjav|upucan|ranjen|izboden|silovan|pretu[cč]|samoubi|masakr|pljačk|pedofil|zlostavlj|krvav|požar|eksplozij|teško povređen/i; // crna hronika se izbacuje
 
 const $=s=>document.querySelector(s);
 const LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
@@ -226,43 +238,58 @@ async function rates(){
  if(R)drawRates(R);else $('#rates').innerHTML='<span class="err">Kurs trenutno nije dostupan</span>';
 }
 
-/* VESTI SA SLIKAMA (RSS preko rss2json) */
+/* VESTI SA SLIKAMA (RSS preko rss2json): Srbija = politika + biznis, Svet = svet + inovacije; bez crne hronike */
 const API='https://api.rss2json.com/v1/api.json?rss_url=';
-const CARDS={p:{chip:'Skupština i vlada',ph:'📰',cls:'p'},a:{chip:'Veštačka inteligencija',ph:'🤖',cls:'a'}};
+const CATS={pol:'Skupština i vlada',biz:'Biznis',svet:'Svet',inov:'Inovacije'};
+const EMO={pol:'📰',biz:'📈',svet:'🌍',inov:'💡'};
 const NS={p:{items:[],i:0},a:{items:[],i:0}};
-for(const k in CARDS){const c=document.createElement('a');c.className='card '+CARDS[k].cls;c.id='c'+k;c.target='_blank';c.rel='noopener';
- c.innerHTML=`<div class="ph"><span>${CARDS[k].ph}</span><img alt="" referrerpolicy="no-referrer"></div><div class="tx"><span class="chip">${CARDS[k].chip}</span><b class="hl">Učitavanje…</b><div class="mt"></div><div class="dots"></div></div>`;$('#n').append(c)}
+for(const k of['p','a']){const c=document.createElement('a');c.className='card '+k;c.id='c'+k;c.target='_blank';c.rel='noopener';
+ c.innerHTML=`<div class="ph"><span></span><img alt="" referrerpolicy="no-referrer"></div><div class="tx"><span class="chip"></span><b class="hl">Učitavanje…</b><div class="body"><div class="bi"></div></div><div class="mt"></div><div class="dots"></div></div>`;$('#n').append(c)}
 const ago=d=>{const m=Math.round((Date.now()-d)/60000);return m<60?`pre ${Math.max(m,1)} min`:m<1440?`pre ${Math.round(m/60)} h`:`pre ${Math.round(m/1440)} d`};
-const dec=s=>{const t=document.createElement('textarea');t.innerHTML=s||'';return t.value};
+const dec=t=>{const e=document.createElement('textarea');e.innerHTML=t||'';return e.value};
+const clean=h=>{let t=plain(h).replace(/\s*(The post .+? appeared first on .+?|Read more.*|Pročitajte više.*|Pročitaj više.*)$/i,'');if(t.length>700){t=t.slice(0,700);const e=t.lastIndexOf('. ');t=e>300?t.slice(0,e+1):t.replace(/\s\S*$/,'…')}return t};
 const plain=h=>dec((h||'').replace(/<[^>]*>/g,' ')).replace(/\s+/g,' ').trim();
 const host=l=>{try{return new URL(l).hostname.replace(/^www\./,'')}catch{return''}};
 const imgOf=i=>(i.thumbnail||(i.enclosure&&/image/.test(i.enclosure.type||'')&&i.enclosure.link)||((i.content||i.description||'').match(/<img[^>]+src=["']([^"']+)/i)||[])[1]||'').replace(/^http:/,'https:');
-async function feed(u){const j=await(await fetch(API+encodeURIComponent(u),{cache:'no-store'})).json();if(j.status!=='ok')throw 0;
- return j.items.map(i=>({title:dec(i.title),link:i.link,date:new Date(i.pubDate.replace(' ','T')+'Z'),img:imgOf(i),src:host(i.link),txt:plain(i.description||i.content).slice(0,400)})).filter(i=>!isNaN(i.date))}
-const gather=async u=>(await Promise.allSettled(u.map(feed))).flatMap(r=>r.status==='fulfilled'?r.value:[]);
-const uniq=a=>{const s=new Set();return a.filter(i=>!s.has(i.title)&&s.add(i.title))};
+let q=0;
+async function feed(u,cat){const j=await(await fetch(API+encodeURIComponent(u),{cache:'no-store'})).json();if(j.status!=='ok')throw 0;
+ return j.items.map(i=>({title:dec(i.title),link:i.link,date:new Date(i.pubDate.replace(' ','T')+'Z'),img:imgOf(i),src:host(i.link),txt:clean(i.content||i.description),cat})).filter(i=>!isNaN(i.date))}
+async function gather(urls,cat,flt){const o=[];
+ await Promise.all(urls.map(async u=>{await new Promise(r=>setTimeout(r,(q++)*300));try{o.push(...await feed(u,cat))}catch{}}));
+ return o.filter(i=>!BLACK.test(i.title+' '+i.txt.slice(0,160))&&(!flt||flt(i)))}
+const uniq=a=>{const t=new Set();return a.filter(i=>!t.has(i.title)&&t.add(i.title))};
+const newest=(a,n)=>uniq(a).sort((x,y)=>y.date-x.date).slice(0,n);
+const rr=(...ls)=>{const o=[],m=Math.max(0,...ls.map(l=>l.length));for(let n=0;n<m;n++)for(const l of ls)if(l[n])o.push(l[n]);return o};
 function show(k){
  const s=NS[k],it=s.items[s.i];if(!it)return;const c=$('#c'+k),im=c.querySelector('img'),tx=c.querySelector('.tx');
- c.href=it.link;c.querySelector('.hl').textContent=it.title;c.querySelector('.mt').textContent=[it.src,ago(it.date)].filter(Boolean).join(' · ');
+ c.dataset.c=it.cat;c.href=it.link;c.querySelector('.chip').textContent=CATS[it.cat]||'';c.querySelector('.ph span').textContent=EMO[it.cat]||'📰';
+ c.querySelector('.hl').textContent=it.title;{let t=it.txt||'';if(t.startsWith(it.title))t=t.slice(it.title.length).trim();c.querySelector('.bi').textContent=t.length<40?'':t}
+ c.querySelector('.mt').textContent=[it.src,ago(it.date)].filter(Boolean).join(' · ');
  c.querySelector('.dots').innerHTML=s.items.map((_,n)=>`<i class="${n===s.i?'on':''}"></i>`).join('');
  im.classList.remove('ok');im.style.display='';
  if(it.img){im.onload=()=>im.classList.add('ok');im.onerror=()=>{im.style.display='none'};im.src=it.img;if(im.complete&&im.naturalWidth)im.classList.add('ok')}else im.removeAttribute('src');
- tx.style.animation='none';void tx.offsetWidth;tx.style.animation='rise .7s both'}
+ tx.style.animation='none';void tx.offsetWidth;tx.style.animation='rise .7s both';play(k)}
+const TM={p:0,a:0};
+function advance(k){const t=NS[k];if(t.items.length>1)t.i=(t.i+1)%t.items.length;show(k)}
+/* prvo naslov, pa tekst vesti sa automatskim skrolom, pa sledeća vest */
+function play(k){
+ clearTimeout(TM[k]);const c=$('#c'+k),b=c.querySelector('.body'),bi=c.querySelector('.bi');
+ bi.style.transition='none';bi.style.transform='translateY(0)';void bi.offsetWidth;
+ const over=bi.scrollHeight-b.clientHeight,len=bi.textContent.length;
+ if(!len){TM[k]=setTimeout(()=>advance(k),9000);return}
+ if(over>4){const dur=Math.max(6000,over*140);TM[k]=setTimeout(()=>{bi.style.transition=`transform ${dur}ms linear`;bi.style.transform=`translateY(-${over}px)`;TM[k]=setTimeout(()=>advance(k),dur+3000)},4500)}
+ else TM[k]=setTimeout(()=>advance(k),Math.min(14000,6000+len*25))}
 function setNews(k,items){const same=NS[k].items[0]&&items[0]&&NS[k].items[0].link===items[0].link;NS[k].items=items;if(!same){NS[k].i=0;show(k)}}
 async function news(){
- const [p,a]=await Promise.all([gather(FEEDS.p),gather(FEEDS.a)]);
- let P=uniq(p).filter(i=>POL.test(i.title+' '+i.txt));
- if(P.length<3)P=P.concat(uniq(p).filter(i=>/kurir/.test(i.src)&&!P.includes(i)));
- P=uniq(P).sort((x,y)=>y.date-x.date).slice(0,6);
+ q=0;
+ const [pol,biz,svet,inov]=await Promise.all([gather(FEEDS.pol,'pol',i=>/kurir/.test(i.src)||POL.test(i.title+' '+i.txt.slice(0,300))),gather(FEEDS.biz,'biz'),gather(FEEDS.svet,'svet'),gather(FEEDS.inov,'inov')]);
+ let P=rr(newest(pol,4),newest(biz,4)).slice(0,8);const A=rr(newest(svet,4),newest(inov,4)).slice(0,8);
  if(!P.length)try{const g=await(await fetch(API+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent('Skupština Srbije vlada when:3d')+'&hl=sr&gl=RS&ceid=RS:sr'))).json();
-  P=g.items.map(i=>{const x=i.title.lastIndexOf(' - ');return{title:dec(x>0?i.title.slice(0,x):i.title),src:x>0?i.title.slice(x+3):'',link:i.link,img:'',date:new Date(i.pubDate.replace(' ','T')+'Z')}}).sort((x,y)=>y.date-x.date).slice(0,6)}catch{}
- const A=uniq(a).filter(i=>AIRE.test(i.title+' '+i.txt)).sort((x,y)=>y.date-x.date).slice(0,6);
+  P=g.items.map(i=>{const x=i.title.lastIndexOf(' - ');return{title:dec(x>0?i.title.slice(0,x):i.title),src:x>0?i.title.slice(x+3):'',link:i.link,img:'',cat:'pol',date:new Date(i.pubDate.replace(' ','T')+'Z')}}).sort((x,y)=>y.date-x.date).slice(0,6)}catch{}
  for(const [k,v] of [['p',P],['a',A]]){
   if(v.length){LS.set('n'+k,v);setNews(k,v)}
   else if(!NS[k].items.length){const c=LS.get('n'+k);if(c)setNews(k,c.map(i=>({...i,date:new Date(i.date)})));else $('#c'+k+' .hl').textContent='Vesti trenutno nisu dostupne'}}
 }
-const rot=k=>{const s=NS[k];if(s.items.length>1){s.i=(s.i+1)%s.items.length;show(k)}};
-setInterval(()=>rot('p'),15000);setTimeout(()=>setInterval(()=>rot('a'),15000),7500);
 
 /* PROVERA SAJTA */
 async function ping(){
@@ -280,52 +307,110 @@ async function ping(){
  code>=500?set('down','greška '+code):set('ok','radi · '+ms+' ms');
 }
 
-/* PLAYER */
-let ST=STATIONS,yt,idx=0,fails=0,nc=false;
+/* PLAYER: Lofi (YouTube) / Radio (Banker, direktan stream) / Knjige (YouTube, pamti poziciju) */
 const IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
-const setPlaying=on=>{$('#pp').innerHTML=on?IC.pause:IC.play;$('#eq').classList.toggle('on',on)};
-$('#vol').value=LS.get('vol')??60;
-$('#vol').oninput=e=>{const v=+e.target.value;LS.set('vol',v);if(yt&&yt.setVolume)yt.setVolume(v)};
+let yt,ytBad=false,nc=false,fails=0,cands=null,busy=false;
+const G={lofi:()=>ytBad?[LOFI_FALLBACK]:LOFI,radio:()=>[{r:1,name:'Banker radio',sub:'Niš · 98.3 FM'}],knjige:()=>BOOKS.concat(LS.get('books')||[])};
+let grp=G[LS.get('grp')]?LS.get('grp'):'lofi',idx=LS.get('idx:'+grp)||0;
+const list=()=>G[grp](),cur=()=>list()[idx];
+const isR=()=>{const t=cur();return t&&t.r};
+const setPlaying=on=>{$('#pp').innerHTML=on?IC.pause:IC.play;$('#eq').classList.toggle('on',on);$('#beq').classList.toggle('on',on)};
+const au=new Audio();au.preload='none';
+au.onplaying=()=>{if(isR())setPlaying(true)};au.onpause=()=>{if(isR())setPlaying(false)};
+au.onerror=()=>{if(isR()&&au.getAttribute('src'))setPlaying(false)};
+const stopAu=()=>{au.pause();au.removeAttribute('src');au.load()};
+const v0=LS.get('vol')??60;$('#vol').value=v0;au.volume=v0/100;
+$('#vol').oninput=e=>{const v=+e.target.value;LS.set('vol',v);au.volume=v/100;if(yt&&yt.setVolume)yt.setVolume(v)};
+const ytLink=(t,txt)=>`<a href="https://www.youtube.com/${t.y?'watch?v='+t.y:'playlist?list='+t.pl}" target="_blank" rel="noopener" style="color:var(--gold)">${txt}</a>`;
+
+/* Banker radio: direktan stream iz Radio Browser baze, pa iz .pls fajla; ako ništa ne radi, rezervni plejer */
+async function plsUrl(){
+ for(const f of [u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?url='+encodeURIComponent(u)]){
+  try{const t=await(await fetch(f(BANKER_PLS),{cache:'no-store'})).text(),m=t.match(/^File1=(.+)$/mi);if(m)return m[1].trim()}catch{}}
+ return''}
+async function resolveRadio(){
+ const u=[];if(BANKER_STREAM)u.push(BANKER_STREAM);
+ for(const h of['de1','nl1','at1']){try{const j=await(await fetch(`https://${h}.api.radio-browser.info/json/stations/search?name=banker&countrycode=RS&hidebroken=true&order=clickcount&reverse=true&limit=6`)).json();if(Array.isArray(j)&&j.length){j.forEach(x=>u.push(x.url_resolved||x.url));break}}catch{}}
+ u.push(await plsUrl());
+ const out=[];for(const x of u){if(!x)continue;const sec=x.replace(/^http:/,'https:');if(!out.includes(sec))out.push(sec);if(sec!==x&&location.protocol!=='https:'&&!out.includes(x))out.push(x)}
+ return out}
+const tryPlay=u=>{au.src=u;return Promise.race([au.play().then(()=>true),new Promise(r=>setTimeout(()=>r(false),8000))]).catch(()=>false)};
+async function radio(){
+ if(busy)return;busy=true;$('#ttl').textContent='Banker radio · povezivanje…';
+ try{
+  const saved=LS.get('rurl');if(!cands)cands=await resolveRadio();
+  const c=[...new Set([...(saved?[saved]:[]),...cands])];let ok=false;
+  for(const u of c){if(await tryPlay(u)){ok=true;LS.set('rurl',u);break}stopAu()}
+  if(ok)$('#ttl').textContent='Banker radio · uživo · Niš 98.3 FM';
+  else{$('#rcard').hidden=true;$('#ewrap').hidden=false;$('#efr').src=BANKER_EMBED;$('#pp').hidden=$('#vol').hidden=true;$('#ttl').textContent=c.length?'Stream ne svira · rezervni plejer (dodirni play u okviru)':'Stream nije pronađen · rezervni plejer (dodirni play u okviru)'}
+ }catch{}
+ busy=false}
+
 function apply(play){
- const s=ST[idx],emb=!!s.embed;
- $('#ywrap').hidden=emb;$('#ewrap').hidden=!emb;$('#pp').hidden=emb;$('#vol').hidden=emb;$('#eq').hidden=emb;$('#mh').textContent=s.name;setPlaying(false);
- if(emb){
-  if(yt&&yt.pauseVideo)try{yt.pauseVideo()}catch{}
-  $('#efr').src=s.embed;
-  $('#ttl').innerHTML=`${s.sub||s.name} · <a href="${s.url}" target="_blank" rel="noopener" style="color:var(--gold)">otvori u pregledaču</a>`;
- }else{
-  $('#efr').src='about:blank';$('#ttl').textContent=s.name;
-  if(yt&&yt.loadVideoById)play?yt.loadVideoById(s.y):yt.cueVideoById(s.y)}}
-const go=d=>{idx=(idx+d+ST.length)%ST.length;apply(true)};
-function skip(){for(let n=0;n<ST.length;n++){idx=(idx+1)%ST.length;if(ST[idx].y)break}apply(true)}
-function ytBroken(){
- ST=ST.filter(s=>!s.y);if(!ST.some(s=>/lofi/i.test(s.name)))ST.unshift(LOFI_FALLBACK);
- if(yt&&yt.destroy)try{yt.destroy()}catch{}yt=null;idx=0;apply(false)}
+ const L=list();if(idx>=L.length)idx=0;const t=L[idx];
+ document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.g===grp));
+ $('#addb').hidden=grp!=='knjige';$('#delb').hidden=!(grp==='knjige'&&t&&t.custom);
+ $('#prev').hidden=$('#next').hidden=L.length<2;
+ if(yt&&yt.pauseVideo)try{yt.pauseVideo()}catch{}
+ stopAu();$('#efr').src='about:blank';setPlaying(false);
+ const yty=!!(t&&(t.y||t.pl)),emb=!!(t&&t.embed),rad=!!(t&&t.r);
+ $('#ywrap').hidden=!yty||ytBad;$('#ewrap').hidden=!emb;$('#rcard').hidden=!rad;
+ $('#pp').hidden=$('#vol').hidden=emb||!t||(yty&&ytBad);$('#eq').hidden=emb||!t;$('#pw').hidden=!t;
+ if(!t){$('#ttl').innerHTML=`Dodaj knjigu sa + · <a href="https://www.youtube.com/results?search_query=${encodeURIComponent('Od pašnjaka do naučenjaka audio knjiga')}" target="_blank" rel="noopener" style="color:var(--gold)">traži Pupina</a>`;return}
+ if(emb){$('#efr').src=t.embed;$('#ttl').innerHTML=`${t.name} · <a href="${t.url}" target="_blank" rel="noopener" style="color:var(--gold)">otvori u pregledaču</a>`;return}
+ if(rad){$('#ttl').textContent=t.name+' · '+t.sub;if(play)radio();return}
+ if(ytBad){$('#ttl').innerHTML=`YouTube ne dozvoljava ugrađeni plejer (greška 153) · ${ytLink(t,'otvori na YouTube-u')}`;return}
+ $('#ttl').textContent=t.name;
+ if(!yt||!yt.loadVideoById)return;
+ const pos=grp==='knjige'&&t.y?(LS.get('pos:'+t.y)||0):0;
+ if(t.y)yt[play?'loadVideoById':'cueVideoById']({videoId:t.y,startSeconds:pos});
+ else yt[play?'loadPlaylist':'cuePlaylist']({listType:'playlist',list:t.pl})}
+const go=d=>{const L=list();if(L.length<2)return;idx=(idx+d+L.length)%L.length;LS.set('idx:'+grp,idx);apply(true)};
 $('#prev').onclick=()=>go(-1);$('#next').onclick=()=>go(1);
-$('#pp').onclick=()=>{if(yt&&yt.getPlayerState)yt.getPlayerState()===1?yt.pauseVideo():yt.playVideo()};
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{grp=b.dataset.g;LS.set('grp',grp);idx=LS.get('idx:'+grp)||0;apply(false)});
+$('#pp').onclick=()=>{if(isR()){au.paused?radio():stopAu();return}if(yt&&yt.getPlayerState)yt.getPlayerState()===1?yt.pauseVideo():yt.playVideo()};
+
+/* audio knjige: dodavanje YouTube linka (video ili plejlista) */
+function ytParse(u){try{const x=new URL(u.trim()),l=x.searchParams.get('list'),v=x.searchParams.get('v')||(x.hostname==='youtu.be'?x.pathname.slice(1):(x.pathname.match(/\/(?:live|embed|shorts)\/([\w-]{11})/)||[])[1]);if(l&&!/^RD/.test(l))return{pl:l};if(v)return{y:v}}catch{}return null}
+$('#addb').onclick=()=>{const u=prompt('Nalepi YouTube link audio knjige ili plejliste:');if(!u)return;const p=ytParse(u);if(!p){alert('Link nije prepoznat');return}
+ const n=prompt('Naslov:','')||'Audio knjiga',b=LS.get('books')||[];b.push({...p,name:n,custom:1});LS.set('books',b);idx=BOOKS.length+b.length-1;LS.set('idx:knjige',idx);apply(true)};
+$('#delb').onclick=()=>{const t=cur();if(!t||!confirm('Ukloniti ovu knjigu?'))return;LS.set('books',(LS.get('books')||[]).filter(x=>!(x.custom&&x.y===t.y&&x.pl===t.pl)));idx=0;apply(false)};
+setInterval(()=>{const t=cur();if(grp==='knjige'&&t&&t.y&&yt&&yt.getPlayerState&&yt.getPlayerState()===1)LS.set('pos:'+t.y,Math.floor(yt.getCurrentTime()))},10000);
+
+/* YouTube plejer */
 const PV={controls:0,modestbranding:1,playsinline:1,rel:0,disablekb:1,fs:0,iv_load_policy:3};
 if(location.protocol.startsWith('http'))PV.origin=location.origin;
-function mkPlayer(host){
+function mkPlayer(hostUrl){
  if(yt&&yt.destroy)try{yt.destroy()}catch{}
  $('#ywrap').innerHTML='<div id="yt"></div>';
- const first=ST.find(s=>s.y);if(!first)return;
- const o={width:'100%',height:'100%',videoId:ST[idx].y||first.y,playerVars:PV,events:{
-  onReady(){yt.setVolume(+$('#vol').value)},
-  onStateChange(e){if(!ST[idx]||!ST[idx].y)return;const c=e.data;if(c===1){fails=0;setPlaying(true);try{$('#ttl').textContent=yt.getVideoData().title||ST[idx].name}catch{}}else if(c===2)setPlaying(false);else if(c===0)skip()},
-  onError(e){if(!ST[idx]||!ST[idx].y)return;const c=e.data;
-   if(c===100||c===101||c===150){if(++fails<ST.filter(s=>s.y).length)skip();else ytBroken()}
+ const o={width:'100%',height:'100%',videoId:LOFI[0].y,playerVars:PV,events:{
+  onReady(){yt.setVolume(+$('#vol').value);apply(false)},
+  onStateChange(e){const t=cur();if(!t||!(t.y||t.pl))return;const c=e.data;
+   if(c===1){fails=0;setPlaying(true);try{const d=yt.getVideoData();$('#ttl').textContent=(grp==='knjige'?t.name+' · ':'')+(d.title||t.name)}catch{}}
+   else if(c===2)setPlaying(false);else if(c===0&&t.y&&list().length>1)go(1)},
+  onError(e){const t=cur();if(!t||!(t.y||t.pl))return;const c=e.data;
+   if(c===100||c===101||c===150){
+    if(grp==='knjige')$('#ttl').innerHTML=`Greška ${c}: video ne dozvoljava ugrađivanje · ${ytLink(t,'otvori na YouTube-u')}`;
+    else if(list().length>1&&++fails<list().length)go(1);else{ytBad=true;apply(false)}}
    else if(!nc){nc=true;mkPlayer('https://www.youtube-nocookie.com')}
-   else ytBroken()}}};
- if(host)o.host=host;
+   else{ytBad=true;apply(false)}}}};
+ if(hostUrl)o.host=hostUrl;
  yt=new YT.Player('yt',o)}
 window.onYouTubeIframeAPIReady=()=>mkPlayer();
+if(location.protocol==='file:')ytBad=true;
 apply(false);
-if(location.protocol==='file:')ytBroken();
-else{const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=ytBroken;document.head.append(sc)}
+if(!ytBad){const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{ytBad=true;apply(false)};document.head.append(sc)}
+
+/* tastatura i daljinski (TV): razmak/Play-Pause, Next/Prev, 1-2-3 menjaju grupu */
+addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test((e.target||{}).tagName||''))return;const k=e.key;
+ if(k==='MediaPlayPause'||(k===' '&&e.target===document.body)){e.preventDefault();$('#pp').click()}
+ else if(k==='MediaTrackNext'||k==='n')$('#next').click();
+ else if(k==='MediaTrackPrevious'||k==='p')$('#prev').click();
+ else if(k==='1'||k==='2'||k==='3')document.querySelectorAll('#tabs button')[+k-1].click()});
 
 /* POKRETANJE */
 weather();rates();news();ping();
-setInterval(applyPhase,5*60e3);setInterval(weather,15*60e3);setInterval(rates,30*60e3);setInterval(news,10*60e3);setInterval(ping,2*60e3);
+setInterval(applyPhase,5*60e3);setInterval(weather,15*60e3);setInterval(rates,30*60e3);setInterval(news,15*60e3);setInterval(ping,2*60e3);
 async function wake(){try{await navigator.wakeLock.request('screen')}catch{}}
 wake();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){wake();weather();rates();news();ping()}});
 if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
