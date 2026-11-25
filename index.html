@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="sr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e3f0fb">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Niš dashboard</title>
+<style>
+:root{--bg:#f7f5fb;--line:rgba(44,58,70,.14);--tx:#2c3a46;--mut:#6b7c8a;--sky:#2c8a7e;--gold:#b46f0c;--red:#cf5446}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html,body{height:100%;background:#fff;color:var(--tx);font-family:Roboto,system-ui,sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.app{height:100%;display:grid;grid-template-columns:.9fr 1.5fr 1.1fr;gap:3px;background:#fff}
+section{padding:3vh 1.8vw;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+#w{background:#e3f0fb;position:relative}#n{background:#e6f3e4;gap:1.8vh;animation-delay:.14s}#m{background:#fdefdb;animation-delay:.28s}
+#w>*:not(#fx){position:relative;z-index:1}
+#w{color:var(--tx);transition:background 1.5s,color 1.5s}
+#w[data-ph=dawn]{background:linear-gradient(180deg,#f9d6cf,#fde9cc 55%,#e3f0fb)}
+#w[data-ph=dusk]{background:linear-gradient(180deg,#d8d0f1,#f8d1c3 65%,#fde6c8)}
+#w[data-ph=night]{background:linear-gradient(180deg,#252f58,#3e4d80);--tx:#eef2ff;--mut:#b3bde0;--sky:#8fe0d1;--line:rgba(255,255,255,.22)}
+#w[data-ph=night] .cl{background:rgba(160,175,220,.4)}
+#w[data-ph=night] .dr{background:linear-gradient(transparent,rgba(190,210,255,.65))}
+.moon{top:22vh;right:2vw;width:10vh;height:10vh;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e6dfbd 75%);box-shadow:0 0 6vh 2vh rgba(255,248,210,.3);animation:glow 8s ease-in-out infinite}
+.st{border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite}
+.sun.low{top:auto;bottom:-18vh;right:auto;left:-8vw;background:radial-gradient(circle,#ffc79a 0%,rgba(255,170,120,.55) 40%,rgba(255,170,120,0) 70%)}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:1}}
+small,.mut{color:var(--mut);font-weight:400}
+.top{display:flex;justify-content:space-between;align-items:baseline}
+.city{font-size:3.8vh;font-weight:500}
+.clk{text-align:right}.clk span{font-size:3.8vh;font-variant-numeric:tabular-nums}.clk small{display:block;font-size:2.1vh}
+.now{display:flex;align-items:center;gap:1.2vw;margin-top:1vh}
+#ico{width:13vh;height:13vh;flex:none}
+#ico svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 .5vh .8vh rgba(50,85,130,.28))}
+.rot{transform-box:fill-box;transform-origin:center;animation:spin 22s linear infinite}
+.pl{transform-box:fill-box;transform-origin:center;animation:glow 4s ease-in-out infinite}
+.fl{animation:flt 7s ease-in-out infinite alternate}.fl2{animation-duration:9s;animation-direction:alternate-reverse}
+.rd{animation:rd 1.1s linear infinite}.sn{animation:sn 3s linear infinite}.bo{animation:bolt 3.2s linear infinite}
+.tw{animation:twinkle 3s ease-in-out infinite}
+.cl1{fill:var(--c,#fff);stroke:rgba(90,120,165,.35);stroke-width:1.4}.s-rain{--c:#d3deec}.s-snow{--c:#dce7f3}.s-storm{--c:#aebbd0}
+#w[data-ph=night] .cl1{fill:#cdd5f0}#w[data-ph=night] .s-storm .cl1{fill:#8e9bbd}
+#w[data-ph=night] #ico svg{filter:drop-shadow(0 0 1vh rgba(255,244,190,.45))}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flt{from{transform:translateX(-3px)}to{transform:translateX(4px)}}
+@keyframes rd{0%{transform:translateY(-6px);opacity:0}25%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+@keyframes sn{0%{transform:translate(0,-6px);opacity:0}20%{opacity:1}100%{transform:translate(4px,14px);opacity:0}}
+@keyframes bolt{0%,60%,100%{opacity:0}62%,66%{opacity:1}64%{opacity:.2}68%{opacity:0}}
+#temp{font-size:24vh;font-weight:200;line-height:1;letter-spacing:-.04em}
+#desc{font-size:3.4vh;color:var(--sky)}
+#meta{font-size:2.3vh;margin-top:.6vh;line-height:1.35}
+#days{display:flex;gap:.5vw;margin-top:auto}
+.day{flex:1;text-align:center;border-top:1px solid var(--line);padding-top:1.2vh}
+.day small{font-size:2.1vh}.day i{display:block;font-style:normal;font-size:4.2vh;margin:.3vh 0}.day b{display:block;font-size:2.5vh;font-weight:500}.day em{font-style:normal;color:var(--mut);font-size:2.2vh}
+.card{flex:1;min-height:0;display:flex;gap:1.6vw;background:rgba(255,255,255,.66);border-radius:2.2vh;padding:1.5vh;text-decoration:none;color:var(--tx);overflow:hidden}
+.ph{flex:0 0 41%;border-radius:1.5vh;overflow:hidden;background:#d5e5ea;position:relative;display:flex;align-items:center;justify-content:center;font-size:9vh}
+.a .ph{background:#e4defa}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
+.ph img.ok{opacity:1;animation:kb 16s linear forwards}
+.tx{flex:1;min-width:0;display:flex;flex-direction:column;padding:.4vh 0}
+.chip{align-self:flex-start;font-size:2vh;font-weight:500;padding:.4vh 1.3vh;border-radius:3vh;background:#cfe8e4;color:#1d6a60}
+.a .chip{background:#e0d9f7;color:#5a43a8}
+.hl{font-size:3vh;line-height:1.25;font-weight:500;margin:1.1vh 0;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.mt{margin-top:auto;font-size:2.1vh;color:var(--mut)}
+.dots{display:flex;gap:.5vh;margin-top:.8vh;height:.8vh}.dots i{flex:1;max-width:3vh;border-radius:1vh;background:rgba(44,58,70,.15)}.dots i.on{background:var(--sky)}
+.mh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.4vh}.mh small{font-size:2.4vh}
+#ywrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5vh}
+#ewrap{position:absolute;inset:0;background:#fff}
+#ewrap iframe{width:100%;height:100%;border:0;display:block}
+.mh h2{font-size:3.4vh;font-weight:500}
+.eq{display:flex;gap:.5vh;align-items:flex-end;height:3vh}.eq span{width:.7vh;height:35%;border-radius:1vh;background:var(--gold)}
+.eq.on span{animation:eq 1s ease-in-out infinite}.eq.on span:nth-child(2){animation-delay:.25s}.eq.on span:nth-child(3){animation-delay:.5s}.eq.on span:nth-child(4){animation-delay:.12s}
+#pw{height:30vh;border-radius:1.8vh;overflow:hidden;background:#f3d9b8;position:relative}
+#pw iframe{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+#ttl{font-size:2.3vh;color:var(--mut);margin:1vh 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctl{display:flex;align-items:center;gap:1.2vw}
+.ctl button{border:0;border-radius:50%;width:6.2vh;height:6.2vh;background:rgba(255,255,255,.75);color:var(--tx);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.ctl button:active{transform:scale(.9)}.ctl #pp{width:7.4vh;height:7.4vh;background:var(--gold);color:#fff}
+.ctl svg{width:55%;height:55%;fill:currentColor}
+.ctl input{flex:1;min-width:0;accent-color:var(--gold)}
+#rnote{font-size:2.1vh;color:var(--mut);margin:1.2vh 0 .2vh}#rnote.old{color:var(--red)}
+.rate{display:flex;align-items:baseline;justify-content:space-between;padding:.9vh 0;border-top:1px solid var(--line)}
+.rate b{font-size:3.2vh;font-weight:500}
+.rate strong{font-size:5.4vh;font-weight:400;color:var(--gold);font-variant-numeric:tabular-nums;border-radius:1vh}
+.rate strong small{font-size:3vh;color:var(--gold);opacity:.7}.rate strong.flash{animation:flash 2s}
+.up{margin-top:auto;display:flex;align-items:center;gap:1.2vw;padding-top:1.2vh;border-top:1px solid var(--line);font-size:2.6vh}
+.up i{width:2.2vh;height:2.2vh;border-radius:50%;background:var(--mut);flex:none}
+.up.ok i{background:var(--sky);animation:pulse 2s ease-out infinite}.up.down i{background:var(--red)}
+.up small{margin-left:auto;font-size:2.1vh;text-align:right}.up.down small{color:var(--red)}
+.err{color:var(--red);font-size:2.4vh}
+.c{font-weight:inherit;animation:blink 2s ease-in-out infinite}
+#fx{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#fx i{position:absolute;display:block}
+.sun{top:-14vh;right:-8vw;width:48vh;height:48vh;border-radius:50%;background:radial-gradient(circle,#ffe9a8 0%,rgba(255,226,140,.55) 40%,rgba(255,226,140,0) 70%);animation:glow 6s ease-in-out infinite}
+.cl{left:0;border-radius:50vh;background:#fff;filter:blur(1.2vh);animation:drift linear infinite}
+.dr{top:0;width:2px;height:3.4vh;background:linear-gradient(transparent,rgba(70,120,175,.55));animation:fall linear infinite}
+.sf{top:0;border-radius:50%;background:#fff;box-shadow:0 0 .6vh rgba(120,160,200,.7);animation:snow linear infinite}
+@keyframes rise{from{opacity:0;transform:translateY(3vh)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-1.4vh) rotate(4deg)}}
+@keyframes pulse{from{box-shadow:0 0 0 0 rgba(44,138,126,.55)}to{box-shadow:0 0 0 1.8vh rgba(44,138,126,0)}}
+@keyframes blink{50%{opacity:.15}}
+@keyframes flash{0%,100%{background:transparent}20%{background:rgba(240,185,77,.55)}}
+@keyframes fall{from{transform:translateY(-6vh)}to{transform:translateY(108vh)}}
+@keyframes snow{from{transform:translate(0,-6vh)}50%{transform:translate(2vw,50vh)}to{transform:translate(-1vw,108vh)}}
+@keyframes drift{from{transform:translateX(-40vw)}to{transform:translateX(55vw)}}
+@keyframes glow{50%{opacity:.75;transform:scale(1.12)}}
+@keyframes kb{to{transform:scale(1.09)}}
+@keyframes eq{50%{height:100%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<div class="app">
+<section id="w"><div id="fx"></div>
+ <div class="top"><span class="city">Niš</span><div class="clk"><span id="t"></span><small id="d"></small></div></div>
+ <div class="now"><span id="ico"></span><span id="temp">--°</span></div>
+ <div id="desc"></div><div id="meta" class="mut"></div>
+ <div id="days"></div>
+</section>
+<section id="n"></section>
+<section id="m">
+ <div class="mh"><h2 id="mh">Lofi radio</h2><div class="eq" id="eq"><span></span><span></span><span></span><span></span></div></div>
+ <div id="pw"><div id="ywrap"><div id="yt"></div></div><div id="ewrap" hidden><iframe id="efr" title="TuneIn" allow="autoplay" scrolling="no"></iframe></div></div>
+ <div id="ttl">Učitavanje playera…</div>
+ <div class="ctl">
+  <button id="prev" aria-label="Prethodna"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+  <button id="pp" aria-label="Pusti ili pauziraj"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+  <button id="next" aria-label="Sledeća"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+  <input id="vol" type="range" min="0" max="100" value="60" aria-label="Jačina">
+ </div>
+ <div id="rnote">srednji kurs</div><div id="rates"></div>
+ <div id="up" class="up"><i></i><span>metalcoopnis.rs</span><small>provera…</small></div>
+</section>
+</div>
+<script>
+/* STANICE (menjaju se dugmadima prethodna/sledeća). y = YouTube video ID, embed = adresa ugrađenog plejera (Tuninga Radio, TuneIn...).
+   Ako YouTube ne dozvoli ugrađivanje (greška 153), sve y stanice se same menjaju lofi radijom sa TuneIn-a. */
+const STATIONS=[
+ {y:'jfKfPfyJRdk',name:'Lofi radio'},
+ {embed:'https://tuningaradio.com/embed/pguvMnvD/',name:'Banker radio',sub:'Niš · 98.3 FM',url:'https://tuningaradio.com/en/stations/serbia/nis/banker-radio-nis-fm-98-3/'},
+ {y:'4xDzrJKXOOY',name:'Synthwave radio'},
+ {y:'5qap5aO4i9A',name:'Lofi sleep/chill'}];
+const LOFI_FALLBACK={embed:'https://tunein.com/embed/player/s352697/',name:'Lofi radio',sub:'lofi-radio.de',url:'https://tunein.com/radio/LOFI-RADIO-s352697'};
+const FEEDS={
+ p:['https://www.kurir.rs/rss/vesti/politika','https://www.danas.rs/feed/','https://n1info.rs/feed/'],
+ a:['https://techcrunch.com/category/artificial-intelligence/feed/','https://www.theverge.com/rss/ai-artificial-intelligence/index.xml']};
+const POL=/skupštin|vlad[aeiu]|premijer|ministar|mandat|poslanik|sednic|kabinet|predsednik|konsultacij|izbor/i;
+const AIRE=/\bai\b|artificial|openai|anthropic|claude|chatgpt|gpt|gemini|llm|chatbot|nvidia|deepmind|robot|veštačk/i;
+
+const $=s=>document.querySelector(s);
+const LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const LOC='sr-Latn-RS';
+function tick(){const n=new Date();{const[h,m]=n.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit',hour12:false}).split(':');$('#t').innerHTML=h+'<b class="c">:</b>'+m}$('#d').textContent=n.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'})}
+tick();setInterval(tick,10000);
+
+/* VREME */
+function wmo(c,n){if(c===0)return['Vedro',n?'🌙':'☀️'];if(c<=2)return['Pretežno vedro',n?(c===1?'🌙':'🌥️'):'🌤️'];if(c===3)return['Oblačno','☁️'];if(c<=48)return['Magla','🌫️'];if(c<=57)return['Rosulja','🌦️'];if(c<=67)return['Kiša','🌧️'];if(c<=77)return['Sneg','🌨️'];if(c<=82)return['Pljuskovi','🌦️'];if(c<=86)return['Snežni pljuskovi','🌨️'];return['Grmljavina','⛈️']}
+let shown=0;
+function countTemp(v){const el=$('#temp'),from=shown,t0=performance.now();shown=v;(function f(n){const p=Math.min((n-t0)/1100,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(v-from)*e)+'°';if(p<1)requestAnimationFrame(f)})(t0)}
+function phase(j){
+ try{const hm=t=>{const m=t.slice(11,16).split(':');return +m[0]*60+ +m[1]},n=new Date().toLocaleTimeString('sv-SE',{timeZone:'Europe/Belgrade',hour12:false,hour:'2-digit',minute:'2-digit'}).split(':'),now=+n[0]*60+ +n[1];
+  if(!j.daily.sunrise)return now<390||now>1230?'night':'day';
+  const sr=hm(j.daily.sunrise[0]),ss=hm(j.daily.sunset[0]);
+  if(now<sr-30||now>ss+30)return'night';if(now<sr+60)return'dawn';if(now>ss-60)return'dusk';return'day'}catch{return'day'}}
+function fx(code,ph){
+ const k=code<=1?'sun':code<=3||(code>=45&&code<=48)?'cloud':(code>=71&&code<=77)||code===85||code===86?'snow':'rain',f=$('#fx'),key=k+ph;
+ if(f.dataset.k===key)return;f.dataset.k=key;f.replaceChildren();
+ const R=(a,b)=>a+Math.random()*(b-a),add=(c,st)=>{const e=document.createElement('i');e.className=c;Object.assign(e.style,st);f.append(e)};
+ if(k==='sun'){if(ph==='night'){for(let n=0;n<32;n++){const z=R(.3,.8)+'vh';add('st',{left:R(0,100)+'%',top:R(0,75)+'%',width:z,height:z,animationDelay:-R(0,5)+'s',animationDuration:R(2,5)+'s'})}}else add(ph==='day'?'sun':'sun low',{})}
+ if(k==='cloud')for(let n=0;n<4;n++)add('cl',{top:R(2,60)+'%',width:R(22,38)+'vw',height:R(8,14)+'vh',opacity:R(.4,.75),animationDuration:R(40,70)+'s',animationDelay:-R(0,60)+'s'});
+ if(k==='rain')for(let n=0;n<30;n++)add('dr',{left:R(0,100)+'%',animationDuration:R(.7,1.3)+'s',animationDelay:-R(0,1.3)+'s'});
+ if(k==='snow')for(let n=0;n<24;n++){const z=R(.8,1.6)+'vh';add('sf',{left:R(0,100)+'%',width:z,height:z,animationDuration:R(5,10)+'s',animationDelay:-R(0,10)+'s'})}
+}
+let W=null;
+const CLOUD='<path class="cl1" d="M28 72a13 13 0 0 1 1-26 19 19 0 0 1 36-3 15 15 0 0 1 3 29z"/>';
+const RAYS=[...Array(8)].map((_,i)=>{const a=i*Math.PI/4,c=Math.cos(a),n=Math.sin(a);return `<line x1="${24*c}" y1="${24*n}" x2="${34*c}" y2="${34*n}"/>`}).join('');
+const SUNG=(x,y,k)=>`<g transform="translate(${x} ${y}) scale(${k})"><g class="rot"><g stroke="#f4b43c" stroke-width="5" stroke-linecap="round">${RAYS}</g></g><circle class="pl" r="17" fill="#f7c04a"/></g>`;
+const MOONG=(x,y,k)=>`<g transform="translate(${x} ${y}) scale(${k})"><g class="pl"><path d="M8 -26a28 28 0 1 0 22 40 22 22 0 0 1 -22 -40z" transform="translate(-14 -2)" fill="#f6e7a6"/></g><circle class="tw" cx="24" cy="-22" r="2" fill="#fff"/><circle class="tw" cx="34" cy="-8" r="1.5" fill="#fff" style="animation-delay:-1s"/></g>`;
+function iconSVG(code,night){
+ const B=night?MOONG:SUNG,cl=(t='',c='fl')=>`<g transform="${t}"><g class="${c}">${CLOUD}</g></g>`;
+ const drops=[38,50,62].map((x,i)=>`<line class="rd" x1="${x}" y1="80" x2="${x-2}" y2="88" stroke="#5aa0e0" stroke-width="3.5" stroke-linecap="round" style="animation-delay:-${i*.37}s"/>`).join('');
+ const flakes=[36,50,64].map((x,i)=>`<circle class="sn" cx="${x}" cy="82" r="2.8" fill="#fff" stroke="#a9c8e8" style="animation-delay:-${i}s"/>`).join('');
+ let k='rain',g;
+ if(code<=1)return `<svg viewBox="0 0 100 100" class="${night?'moon-glow':''}">${B(50,50,1)}</svg>`;
+ if(code===2)g=B(38,36,.75)+cl('translate(6 8)');
+ else if(code===3)g=cl('translate(-10 -12) scale(.75)','fl fl2')+cl('translate(4 4)');
+ else if(code<=48){k='fog';g=cl('translate(0 -10)')+[78,86,94].map((y,i)=>`<line class="fl${i===1?' fl2':''}" x1="${26+i*4}" y1="${y}" x2="${74-i*4}" y2="${y}" stroke="#b9c6d6" stroke-width="4" stroke-linecap="round"/>`).join('')}
+ else if(code>=95){k='storm';g=cl('translate(0 -10)')+'<polygon class="bo" points="52,62 42,82 51,82 46,98 62,74 53,74 58,62" fill="#f6c744"/>'}
+ else if((code>=71&&code<=77)||code===85||code===86){k='snow';g=cl('translate(0 -10)')+flakes}
+ else g=cl('translate(0 -10)')+drops;
+ return `<svg viewBox="0 0 100 100" class="s-${k}">${g}</svg>`}
+function applyPhase(){if(!W)return;const ph=phase(W),c=W.current;$('#w').dataset.ph=ph;$('#ico').innerHTML=iconSVG(c.weather_code,ph==='night');fx(c.weather_code,ph)}
+function drawWeather(j){
+ const c=j.current,[t,i]=wmo(c.weather_code);
+ W=j;countTemp(Math.round(c.temperature_2m));applyPhase();$('#desc').textContent=t;
+ $('#meta').textContent=`Osećaj ${Math.round(c.apparent_temperature)}° · vlažnost ${c.relative_humidity_2m}% · vetar ${Math.round(c.wind_speed_10m)} km/h`;
+ const first=!$('#days').children.length;
+ $('#days').replaceChildren(...j.daily.time.map((d,k)=>{const e=document.createElement('div');e.className='day';if(first)e.style.animation=`rise .7s ${.5+k*.1}s both`;
+  const nm=k===0?'danas':new Date(d+'T12:00').toLocaleDateString(LOC,{weekday:'short'});
+  e.innerHTML=`<small>${nm}</small><i>${wmo(j.daily.weather_code[k])[1]}</i><b>${Math.round(j.daily.temperature_2m_max[k])}°</b><em>${Math.round(j.daily.temperature_2m_min[k])}°</em>`;return e}));
+}
+async function weather(){
+ try{const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.3209&longitude=21.8958&current=is_day,temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=Europe%2FBelgrade&forecast_days=5',{cache:'no-store'});
+  const j=await r.json();if(!j.current)throw 0;LS.set('w',j);drawWeather(j)}
+ catch{const j=LS.get('w');if(j)drawWeather(j);else $('#desc').innerHTML='<span class="err">Nema podataka o vremenu</span>'}
+}
+
+/* SREDNJI KURS (NBS preko kurs.resenje.org; rezerva: tržišni kurs) */
+const prevR={};
+const fmt=n=>n.toFixed(4).replace('.',',');
+function drawRates(R){
+ const e=R.EUR||R.CHF,old=e&&e.date&&(Date.now()-new Date(e.date))/864e5>5;
+ $('#rnote').className=old?'old':'';
+ $('#rnote').textContent=(e&&e.approx?'srednji kurs · tržišni, okvirno':'srednji kurs NBS')+(e&&e.date?' · '+e.date.slice(8)+'.'+e.date.slice(5,7)+'.':'')+(old?' (stari podatak)':'');
+ $('#rates').replaceChildren(...['EUR','CHF'].map(k=>{const v=R[k],d=document.createElement('div');d.className='rate';
+  if(!v){d.innerHTML=`<b>${k}</b><span class="err">nema podatka</span>`;return d}
+  const s=fmt(v.mid);d.innerHTML=`<b>${k}</b><strong class="${prevR[k]&&prevR[k]!==s?'flash':''}">${s.slice(0,-2)}<small>${s.slice(-2)}</small></strong>`;prevR[k]=s;return d}));
+}
+async function rates(){
+ let R=null;
+ try{const j=await(await fetch('https://kurs.resenje.org/api/v1/rates/today',{cache:'no-store'})).json(),m={};
+  for(const x of j.rates||[])if(x.code==='EUR'||x.code==='CHF')m[x.code]={mid:x.exchange_middle/(x.parity||1),date:x.date};
+  if(m.EUR&&m.CHF)R=m}catch{}
+ if(!R)try{const j=await(await fetch('https://open.er-api.com/v6/latest/EUR',{cache:'no-store'})).json(),r=j.rates;
+  R={EUR:{mid:r.RSD,approx:1},CHF:{mid:r.RSD/r.CHF,approx:1}}}catch{}
+ if(R)LS.set('r2',R);else R=LS.get('r2');
+ if(R)drawRates(R);else $('#rates').innerHTML='<span class="err">Kurs trenutno nije dostupan</span>';
+}
+
+/* VESTI SA SLIKAMA (RSS preko rss2json) */
+const API='https://api.rss2json.com/v1/api.json?rss_url=';
+const CARDS={p:{chip:'Skupština i vlada',ph:'📰',cls:'p'},a:{chip:'Veštačka inteligencija',ph:'🤖',cls:'a'}};
+const NS={p:{items:[],i:0},a:{items:[],i:0}};
+for(const k in CARDS){const c=document.createElement('a');c.className='card '+CARDS[k].cls;c.id='c'+k;c.target='_blank';c.rel='noopener';
+ c.innerHTML=`<div class="ph"><span>${CARDS[k].ph}</span><img alt="" referrerpolicy="no-referrer"></div><div class="tx"><span class="chip">${CARDS[k].chip}</span><b class="hl">Učitavanje…</b><div class="mt"></div><div class="dots"></div></div>`;$('#n').append(c)}
+const ago=d=>{const m=Math.round((Date.now()-d)/60000);return m<60?`pre ${Math.max(m,1)} min`:m<1440?`pre ${Math.round(m/60)} h`:`pre ${Math.round(m/1440)} d`};
+const dec=s=>{const t=document.createElement('textarea');t.innerHTML=s||'';return t.value};
+const plain=h=>dec((h||'').replace(/<[^>]*>/g,' ')).replace(/\s+/g,' ').trim();
+const host=l=>{try{return new URL(l).hostname.replace(/^www\./,'')}catch{return''}};
+const imgOf=i=>(i.thumbnail||(i.enclosure&&/image/.test(i.enclosure.type||'')&&i.enclosure.link)||((i.content||i.description||'').match(/<img[^>]+src=["']([^"']+)/i)||[])[1]||'').replace(/^http:/,'https:');
+async function feed(u){const j=await(await fetch(API+encodeURIComponent(u),{cache:'no-store'})).json();if(j.status!=='ok')throw 0;
+ return j.items.map(i=>({title:dec(i.title),link:i.link,date:new Date(i.pubDate.replace(' ','T')+'Z'),img:imgOf(i),src:host(i.link),txt:plain(i.description||i.content).slice(0,400)})).filter(i=>!isNaN(i.date))}
+const gather=async u=>(await Promise.allSettled(u.map(feed))).flatMap(r=>r.status==='fulfilled'?r.value:[]);
+const uniq=a=>{const s=new Set();return a.filter(i=>!s.has(i.title)&&s.add(i.title))};
+function show(k){
+ const s=NS[k],it=s.items[s.i];if(!it)return;const c=$('#c'+k),im=c.querySelector('img'),tx=c.querySelector('.tx');
+ c.href=it.link;c.querySelector('.hl').textContent=it.title;c.querySelector('.mt').textContent=[it.src,ago(it.date)].filter(Boolean).join(' · ');
+ c.querySelector('.dots').innerHTML=s.items.map((_,n)=>`<i class="${n===s.i?'on':''}"></i>`).join('');
+ im.classList.remove('ok');im.style.display='';
+ if(it.img){im.onload=()=>im.classList.add('ok');im.onerror=()=>{im.style.display='none'};im.src=it.img;if(im.complete&&im.naturalWidth)im.classList.add('ok')}else im.removeAttribute('src');
+ tx.style.animation='none';void tx.offsetWidth;tx.style.animation='rise .7s both'}
+function setNews(k,items){const same=NS[k].items[0]&&items[0]&&NS[k].items[0].link===items[0].link;NS[k].items=items;if(!same){NS[k].i=0;show(k)}}
+async function news(){
+ const [p,a]=await Promise.all([gather(FEEDS.p),gather(FEEDS.a)]);
+ let P=uniq(p).filter(i=>POL.test(i.title+' '+i.txt));
+ if(P.length<3)P=P.concat(uniq(p).filter(i=>/kurir/.test(i.src)&&!P.includes(i)));
+ P=uniq(P).sort((x,y)=>y.date-x.date).slice(0,6);
+ if(!P.length)try{const g=await(await fetch(API+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent('Skupština Srbije vlada when:3d')+'&hl=sr&gl=RS&ceid=RS:sr'))).json();
+  P=g.items.map(i=>{const x=i.title.lastIndexOf(' - ');return{title:dec(x>0?i.title.slice(0,x):i.title),src:x>0?i.title.slice(x+3):'',link:i.link,img:'',date:new Date(i.pubDate.replace(' ','T')+'Z')}}).sort((x,y)=>y.date-x.date).slice(0,6)}catch{}
+ const A=uniq(a).filter(i=>AIRE.test(i.title+' '+i.txt)).sort((x,y)=>y.date-x.date).slice(0,6);
+ for(const [k,v] of [['p',P],['a',A]]){
+  if(v.length){LS.set('n'+k,v);setNews(k,v)}
+  else if(!NS[k].items.length){const c=LS.get('n'+k);if(c)setNews(k,c.map(i=>({...i,date:new Date(i.date)})));else $('#c'+k+' .hl').textContent='Vesti trenutno nisu dostupne'}}
+}
+const rot=k=>{const s=NS[k];if(s.items.length>1){s.i=(s.i+1)%s.items.length;show(k)}};
+setInterval(()=>rot('p'),15000);setTimeout(()=>setInterval(()=>rot('a'),15000),7500);
+
+/* PROVERA SAJTA */
+async function ping(){
+ const el=$('#up'),url='https://metalcoopnis.rs/',now=new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'});
+ const set=(cls,txt)=>{el.className='up '+cls;el.querySelector('small').textContent=txt+' · '+now};
+ if(!navigator.onLine)return set('','nema interneta');
+ let ok=false,ms=0;
+ for(let i=0;i<2&&!ok;i++){
+  const ac=new AbortController(),to=setTimeout(()=>ac.abort(),8000),t0=performance.now();
+  try{await fetch(url+'?t='+Date.now(),{mode:'no-cors',cache:'no-store',signal:ac.signal});ok=true;ms=Math.round(performance.now()-t0)}catch{}
+  clearTimeout(to)}
+ if(!ok)return set('down','ne radi');
+ let code=0;
+ try{const j=await(await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url),{cache:'no-store'})).json();code=j.status&&j.status.http_code||0}catch{}
+ code>=500?set('down','greška '+code):set('ok','radi · '+ms+' ms');
+}
+
+/* PLAYER */
+let ST=STATIONS,yt,idx=0,fails=0,nc=false;
+const IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
+const setPlaying=on=>{$('#pp').innerHTML=on?IC.pause:IC.play;$('#eq').classList.toggle('on',on)};
+$('#vol').value=LS.get('vol')??60;
+$('#vol').oninput=e=>{const v=+e.target.value;LS.set('vol',v);if(yt&&yt.setVolume)yt.setVolume(v)};
+function apply(play){
+ const s=ST[idx],emb=!!s.embed;
+ $('#ywrap').hidden=emb;$('#ewrap').hidden=!emb;$('#pp').hidden=emb;$('#vol').hidden=emb;$('#eq').hidden=emb;$('#mh').textContent=s.name;setPlaying(false);
+ if(emb){
+  if(yt&&yt.pauseVideo)try{yt.pauseVideo()}catch{}
+  $('#efr').src=s.embed;
+  $('#ttl').innerHTML=`${s.sub||s.name} · <a href="${s.url}" target="_blank" rel="noopener" style="color:var(--gold)">otvori u pregledaču</a>`;
+ }else{
+  $('#efr').src='about:blank';$('#ttl').textContent=s.name;
+  if(yt&&yt.loadVideoById)play?yt.loadVideoById(s.y):yt.cueVideoById(s.y)}}
+const go=d=>{idx=(idx+d+ST.length)%ST.length;apply(true)};
+function skip(){for(let n=0;n<ST.length;n++){idx=(idx+1)%ST.length;if(ST[idx].y)break}apply(true)}
+function ytBroken(){
+ ST=ST.filter(s=>!s.y);if(!ST.some(s=>/lofi/i.test(s.name)))ST.unshift(LOFI_FALLBACK);
+ if(yt&&yt.destroy)try{yt.destroy()}catch{}yt=null;idx=0;apply(false)}
+$('#prev').onclick=()=>go(-1);$('#next').onclick=()=>go(1);
+$('#pp').onclick=()=>{if(yt&&yt.getPlayerState)yt.getPlayerState()===1?yt.pauseVideo():yt.playVideo()};
+const PV={controls:0,modestbranding:1,playsinline:1,rel:0,disablekb:1,fs:0,iv_load_policy:3};
+if(location.protocol.startsWith('http'))PV.origin=location.origin;
+function mkPlayer(host){
+ if(yt&&yt.destroy)try{yt.destroy()}catch{}
+ $('#ywrap').innerHTML='<div id="yt"></div>';
+ const first=ST.find(s=>s.y);if(!first)return;
+ const o={width:'100%',height:'100%',videoId:ST[idx].y||first.y,playerVars:PV,events:{
+  onReady(){yt.setVolume(+$('#vol').value)},
+  onStateChange(e){if(!ST[idx]||!ST[idx].y)return;const c=e.data;if(c===1){fails=0;setPlaying(true);try{$('#ttl').textContent=yt.getVideoData().title||ST[idx].name}catch{}}else if(c===2)setPlaying(false);else if(c===0)skip()},
+  onError(e){if(!ST[idx]||!ST[idx].y)return;const c=e.data;
+   if(c===100||c===101||c===150){if(++fails<ST.filter(s=>s.y).length)skip();else ytBroken()}
+   else if(!nc){nc=true;mkPlayer('https://www.youtube-nocookie.com')}
+   else ytBroken()}}};
+ if(host)o.host=host;
+ yt=new YT.Player('yt',o)}
+window.onYouTubeIframeAPIReady=()=>mkPlayer();
+apply(false);
+if(location.protocol==='file:')ytBroken();
+else{const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=ytBroken;document.head.append(sc)}
+
+/* POKRETANJE */
+weather();rates();news();ping();
+setInterval(applyPhase,5*60e3);setInterval(weather,15*60e3);setInterval(rates,30*60e3);setInterval(news,10*60e3);setInterval(ping,2*60e3);
+async function wake(){try{await navigator.wakeLock.request('screen')}catch{}}
+wake();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){wake();weather();rates();news();ping()}});
+if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+addEventListener('click',async()=>{if(document.fullscreenElement||matchMedia('(display-mode: fullscreen)').matches)return;try{await document.documentElement.requestFullscreen({navigationUI:'hide'});await screen.orientation.lock('landscape')}catch{}});
+</script></body></html>
