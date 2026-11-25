@@ -61,7 +61,7 @@ small,.mut{color:var(--mut);font-weight:400}
 .tx{flex:1;min-width:0;display:flex;flex-direction:column;padding:.4vh 0}
 .chip{align-self:flex-start;font-size:2vh;font-weight:500;padding:.4vh 1.3vh;border-radius:3vh;background:#cfe8e4;color:#1d6a60}
 .card[data-c=biz] .chip{background:#fbe5b8;color:#8a5a0a}.card[data-c=svet] .chip{background:#cfe3f7;color:#1f5a8f}.card[data-c=inov] .chip{background:#e0d9f7;color:#5a43a8}
-.hl{font-size:3vh;line-height:1.25;font-weight:500;margin:.9vh 0 .6vh;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hl{font-size:2.8vh;line-height:1.25;font-weight:500;margin:.9vh 0 .6vh;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .body{flex:1;min-height:0;overflow:hidden;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
 .bi{font-size:2.35vh;line-height:1.4;color:var(--tx);opacity:.82;padding-bottom:3.5vh;will-change:transform}
 .mt{margin-top:.6vh;font-size:2.1vh;color:var(--mut)}
@@ -82,7 +82,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
 .mh h2{font-size:3.4vh;font-weight:500}
 .eq{display:flex;gap:.5vh;align-items:flex-end;height:3vh}.eq span{width:.7vh;height:35%;border-radius:1vh;background:var(--gold)}
 .eq.on span{animation:eq 1s ease-in-out infinite}.eq.on span:nth-child(2){animation-delay:.25s}.eq.on span:nth-child(3){animation-delay:.5s}.eq.on span:nth-child(4){animation-delay:.12s}
-#pw{height:30vh;border-radius:1.8vh;overflow:hidden;background:#f3d9b8;position:relative}
+#pw{height:24vh;border-radius:1.8vh;overflow:hidden;background:#f3d9b8;position:relative}
 #pw iframe{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
 #ttl{flex:1;min-width:0;font-size:2.3vh;color:var(--mut);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ctl{display:flex;align-items:center;gap:1.2vw}
@@ -93,7 +93,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
 #rnote{font-size:2.1vh;color:var(--mut);margin:1.2vh 0 .2vh}#rnote.old{color:var(--red)}
 .rate{display:flex;align-items:baseline;justify-content:space-between;padding:.9vh 0;border-top:1px solid var(--line)}
 .rate b{font-size:3.2vh;font-weight:500}
-.rate strong{font-size:5.4vh;font-weight:400;color:var(--gold);font-variant-numeric:tabular-nums;border-radius:1vh}
+.rate strong{font-size:4.8vh;font-weight:400;color:var(--gold);font-variant-numeric:tabular-nums;border-radius:1vh}
 .rate strong small{font-size:3vh;color:var(--gold);opacity:.7}.rate strong.flash{animation:flash 2s}
 .up{margin-top:auto;display:flex;align-items:center;gap:1.2vw;padding-top:1.2vh;border-top:1px solid var(--line);font-size:2.6vh}
 .up i{width:2.2vh;height:2.2vh;border-radius:50%;background:var(--mut);flex:none}
@@ -118,6 +118,46 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
 @keyframes glow{50%{opacity:.75;transform:scale(1.12)}}
 @keyframes kb{to{transform:scale(1.09)}}
 @keyframes eq{50%{height:100%}}
+
+/* lofi scena */
+#lcard{position:absolute;inset:0;background:#2b2159;overflow:hidden;animation:rise .6s both}
+#lcard svg{position:absolute;inset:0;width:100%;height:100%}
+#leq{position:absolute;left:1.4vw;bottom:1.2vh;height:3.2vh}#leq span{background:#ffd9e6}
+.lf-rain{stroke:#a9c4ff;stroke-width:1.1;stroke-linecap:round;opacity:.7;animation:lfrain linear infinite}
+.lf-st{fill:#fff;animation:twinkle ease-in-out infinite}
+.lf-win{fill:#ffd98a;animation:lfblink ease-in-out infinite}
+.lf-glow,.lf-moon{transform-box:fill-box;transform-origin:center;animation:glow 6s ease-in-out infinite}
+.lf-steam{fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;opacity:0;animation:lfsteam 3.2s ease-in-out infinite}
+.lf-spin{transform-box:fill-box;transform-origin:center;animation:spin 3.6s linear infinite}
+.lf-tail{transform-box:fill-box;transform-origin:100% 100%;animation:lftail 2.6s ease-in-out infinite alternate}
+.lf-note{fill:#ffd9e6;font-size:13px;opacity:0;animation:lfnote 6s ease-in infinite}
+.lf-code{fill:#9ad8ff;transform-box:fill-box;transform-origin:0 50%;animation:lfcode 2.8s ease-in-out infinite}
+@keyframes lfrain{from{transform:translateY(-14px)}to{transform:translateY(96px)}}
+@keyframes lfblink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes lfsteam{0%{opacity:0;transform:translateY(4px)}30%{opacity:.7}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes lftail{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+@keyframes lfnote{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(14px,-46px)}}
+@keyframes lfcode{0%,100%{transform:scaleX(.25)}50%{transform:scaleX(1)}}
+/* sport */
+#sp{flex:1.15;min-height:0;display:flex;flex-direction:column;gap:1vh}
+#res{flex:none;background:rgba(255,255,255,.66);border-radius:2.2vh;padding:1vh 1.2vw;display:flex;flex-direction:column;gap:.7vh}
+.tm{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:1vw;row-gap:.1vh;align-items:center}
+.tm+.tm{border-top:1px solid var(--line);padding-top:.7vh}
+.tm i{grid-row:1/3;font-style:normal;font-size:3.4vh}
+.tm b{font-size:2.5vh;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tm b .w{color:#1d7a4d}.tm b .l{color:var(--red)}
+.tm em{font-style:normal;font-size:2vh;color:var(--mut);white-space:nowrap}
+.tm small{grid-column:2/4;font-size:2vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card.s{padding:1.1vh}.card.s .ph{flex-basis:34%;font-size:6vh}.card.s .hl{font-size:2.7vh;-webkit-line-clamp:4}.card.s .body,.card.s .dots{display:none}.card.s .mt{margin-top:auto}
+.card[data-c=sport] .ph{background:#f9dccf}.card[data-c=sport] .chip{background:#fbd9c8;color:#a1411a}
+/* zastave i AI modeli */
+.rate b{display:flex;align-items:center;gap:1.2vh}
+.fg{height:3.4vh;width:5.1vh;flex:none;border-radius:.6vh;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
+#ai{margin-top:.6vh}
+.ai{display:flex;align-items:center;gap:1.1vw;padding:.45vh 0;border-top:1px solid var(--line)}
+.ai svg{width:3.8vh;height:3.8vh;flex:none;filter:drop-shadow(0 .2vh .4vh rgba(0,0,0,.12))}
+.ai b{display:block;font-size:2.3vh;font-weight:500;line-height:1.15}
+.ai small{display:block;font-size:2vh;line-height:1.2}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style></head><body>
 <div class="app">
@@ -127,10 +167,28 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
  <div id="desc"></div><div id="meta" class="mut"></div>
  <div id="days"></div>
 </section>
-<section id="n"></section>
+<section id="n"><div id="sp"><div id="res"></div></div></section>
 <section id="m">
  <div class="mh"><div class="tabs" id="tabs"><button data-g="lofi">Lofi</button><button data-g="radio">Radio</button><button data-g="knjige">Knjige</button></div><div class="eq" id="eq"><span></span><span></span><span></span><span></span></div></div>
- <div id="pw"><div id="ywrap"><div id="yt"></div></div><div id="ewrap" hidden><iframe id="efr" title="Plejer" allow="autoplay" scrolling="no"></iframe></div><div id="rcard" hidden><div class="fm">98.3<small>FM</small></div><div class="eq" id="beq"><span></span><span></span><span></span><span></span></div></div></div>
+ <div id="pw"><div id="ywrap"><div id="yt"></div></div><div id="ewrap" hidden><iframe id="efr" title="Plejer" allow="autoplay" scrolling="no"></iframe></div><div id="rcard" hidden><div class="fm">98.3<small>FM</small></div><div class="eq" id="beq"><span></span><span></span><span></span><span></span></div></div><div id="lcard" hidden><svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2159"/><stop offset=".6" stop-color="#6a3f86"/><stop offset="1" stop-color="#e58aa0"/></linearGradient><linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#111a44"/><stop offset="1" stop-color="#4a3a86"/></linearGradient><radialGradient id="lg3"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></radialGradient><clipPath id="lwin"><rect x="196" y="20" width="96" height="78" rx="3"/></clipPath></defs>
+<rect width="320" height="180" fill="url(#lg1)"/>
+<rect x="190" y="14" width="108" height="90" rx="5" fill="#1a1238"/>
+<g clip-path="url(#lwin)"><rect x="196" y="20" width="96" height="78" fill="url(#lg2)"/><circle class="lf-moon" cx="270" cy="38" r="9" fill="#fff6d6"/><g id="lst"></g><path d="M196 98V74h10V62h12v14h8V56h14v22h10V66h12v12h8V70h10v28z" fill="#1b1546"/><g id="lwn"></g><g id="lrain"></g></g>
+<path d="M244 20v78M196 59h96" stroke="#1a1238" stroke-width="3"/>
+<rect x="0" y="128" width="320" height="52" fill="#24173f"/><rect x="0" y="126" width="320" height="4" fill="#38265c"/>
+<circle class="lf-glow" cx="68" cy="100" r="56" fill="url(#lg3)"/>
+<path class="lf-tail" d="M20 124q-14 0-12-14" stroke="#120c2b" stroke-width="4" stroke-linecap="round" fill="none"/>
+<ellipse cx="32" cy="119" rx="14" ry="9" fill="#120c2b"/><circle cx="45" cy="112" r="7" fill="#120c2b"/><path d="M40 108l1-8 5 6zM46 106l5-6 1 9z" fill="#120c2b"/>
+<path d="M60 126h16l-3-4H63z" fill="#120c2b"/><path d="M68 122V98" stroke="#120c2b" stroke-width="3"/><path d="M56 100h24l-6-14H62z" fill="#f4b86a"/>
+<rect x="104" y="88" width="64" height="38" rx="3" fill="#1c1540" stroke="#3b2d68" stroke-width="1.5"/><rect x="108" y="92" width="56" height="30" fill="#2c2266"/>
+<rect class="lf-code" x="112" y="97" width="30" height="3" rx="1.5"/><rect class="lf-code" x="112" y="104" width="40" height="3" rx="1.5" style="animation-delay:-.9s"/><rect class="lf-code" x="112" y="111" width="24" height="3" rx="1.5" style="animation-delay:-1.8s"/>
+<rect x="98" y="126" width="76" height="4" rx="2" fill="#4a3a80"/>
+<rect x="184" y="112" width="16" height="14" rx="3" fill="#f2d6c4"/><path d="M200 115h3a3 3 0 0 1 0 8h-3" stroke="#f2d6c4" stroke-width="2" fill="none"/>
+<path class="lf-steam" d="M188 109q-3-5 0-9"/><path class="lf-steam" d="M192 109q-3-5 0-9" style="animation-delay:-1s"/><path class="lf-steam" d="M196 109q-3-5 0-9" style="animation-delay:-2s"/>
+<rect x="252" y="124" width="20" height="3" rx="1.5" fill="#4a3a80"/>
+<g class="lf-spin"><circle cx="262" cy="110" r="14" fill="#120c2b"/><circle cx="262" cy="110" r="9" fill="none" stroke="#2b2159" stroke-width="1"/><circle cx="262" cy="110" r="4.5" fill="#e58aa0"/><path d="M262 96a14 14 0 0 1 10 4" stroke="#6a5aa0" stroke-width="1.4" fill="none"/></g>
+<text class="lf-note" x="146" y="84">♪</text><text class="lf-note" x="168" y="80" style="animation-delay:-2s">♫</text><text class="lf-note" x="120" y="86" style="animation-delay:-4s">♪</text>
+</svg><div class="eq" id="leq"><span></span><span></span><span></span><span></span></div></div></div>
  <div id="trow"><div id="ttl">Učitavanje playera…</div><button id="addb" hidden aria-label="Dodaj knjigu">+</button><button id="delb" hidden aria-label="Ukloni knjigu">×</button></div>
  <div class="ctl">
   <button id="prev" aria-label="Prethodna"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
@@ -138,22 +196,24 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
   <button id="next" aria-label="Sledeća"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
   <input id="vol" type="range" min="0" max="100" value="60" aria-label="Jačina">
  </div>
- <div id="rnote">srednji kurs</div><div id="rates"></div>
+ <div id="rnote">srednji kurs</div><div id="rates"></div><div id="ai"></div>
  <div id="up" class="up"><i></i><span>metalcoopnis.rs</span><small>provera…</small></div>
 </section>
 </div>
 <script>
 /* PODEŠAVANJA */
-const LOFI=[{y:'jfKfPfyJRdk',name:'Lofi radio'},{y:'4xDzrJKXOOY',name:'Synthwave radio'},{y:'5qap5aO4i9A',name:'Lofi sleep/chill'}]; // YouTube ID-jevi
+const LOFI=[{y:'jfKfPfyJRdk',name:'Lofi radio'},{y:'4xDzrJKXOOY',name:'Synthwave radio'},{y:'5qap5aO4i9A',name:'Lofi sleep/chill'},{y:'5yx6BWlEVcY',name:'Chillhop radio'},{y:'28KRPhVzCus',name:'Lofi sleep radio'},{y:'Dx5qFachd3A',name:'Jazz radio'}]; // YouTube ID-jevi (live streamovi); dodaj svoje: {y:'ID',name:'Naziv'} ili {pl:'PLAYLIST_ID',name:'Naziv'}
+const LOFI_SCENE=true; // true = na Lofi kartici prikaži animiranu scenu (video svira ispod); false = prikaži sam YouTube video
 const BANKER_STREAM='https://banker96-naxinacional.streaming.rs:8542/;'; // direktan stream Banker radija (izvor: myradiostanice.rs)
 const BANKER_PLS='https://radiobanker.rs/wp-content/uploads/bankerradio.pls';
 const RADIOS={banker:{urls:[BANKER_STREAM,BANKER_STREAM+'stream.mp3'],rb:'name=banker&countrycode=RS',pls:BANKER_PLS},lofi:{urls:[],rb:'tag=lofi',pls:''}}; // direktni stream-ovi; rb = pretraga u Radio Browser bazi
-const BOOKS=[];           // audio knjige: {y:'VIDEO_ID',name:'Naslov'} ili {pl:'PLAYLIST_ID',name:'Naslov'}; mogu se dodati i u aplikaciji tasterom +
+const BOOKS=[{y:'8hO25XtImus',name:'Audio knjiga'}];           // audio knjige: {y:'VIDEO_ID',name:'Naslov'} ili {pl:'PLAYLIST_ID',name:'Naslov'}; mogu se dodati i u aplikaciji tasterom +
 const FEEDS={
  pol:['https://www.kurir.rs/rss/vesti/politika','https://www.danas.rs/feed/','https://n1info.rs/feed/'],
  biz:['https://n1info.rs/biznis/feed/','https://www.danas.rs/vesti/ekonomija/feed/','https://feeds.bbci.co.uk/news/business/rss.xml'],
  svet:['https://feeds.bbci.co.uk/serbian/lat/rss.xml','https://n1info.rs/svet/feed/'],
- inov:['https://techcrunch.com/category/artificial-intelligence/feed/','https://www.theverge.com/rss/ai-artificial-intelligence/index.xml','https://www.technologyreview.com/feed/']};
+ inov:['https://techcrunch.com/category/artificial-intelligence/feed/','https://www.theverge.com/rss/ai-artificial-intelligence/index.xml','https://www.technologyreview.com/feed/'],
+ sport:['https://www.kurir.rs/rss/sport/kosarka','https://www.kurir.rs/rss/sport','https://n1info.rs/sport/feed/','https://www.b92.net/info/rss/sport.xml']};
 const POL=/skupštin|vlad[aeiu]|premijer|ministar|mandat|poslanik|sednic|kabinet|predsednik|konsultacij|izbor/i;
 const BLACK=/ubistv|ubi(o|la|li|jen|ce)\b|ubica|poginu|nastradal|saobra[ćc]ajn|nesre[ćc]|uhap[sš]|hapšenj|pucnjav|upucan|ranjen|izboden|silovan|pretu[cč]|samoubi|masakr|pljačk|pedofil|zlostavlj|krvav|požar|eksplozij|teško povređen/i; // crna hronika se izbacuje
 
@@ -216,6 +276,16 @@ async function weather(){
 }
 
 /* SREDNJI KURS (NBS preko kurs.resenje.org; rezerva: tržišni kurs) */
+/* NAJNOVIJI AI MODELI (ručno se menja ovde; provereno 25.11.2026) */
+const AI=[
+ {n:'Claude',m:'Fable 5.2 · Opus 5.5 · Sonnet 5.5',g:(()=>{let l='';for(let i=0;i<12;i++){const a=i*Math.PI/6,r=i%2?11:15;l+=`<line x1="${(20+3*Math.cos(a)).toFixed(1)}" y1="${(20+3*Math.sin(a)).toFixed(1)}" x2="${(20+r*Math.cos(a)).toFixed(1)}" y2="${(20+r*Math.sin(a)).toFixed(1)}"/>`}return `<g stroke="#d97757" stroke-width="3.4" stroke-linecap="round">${l}</g>`})()},
+ {n:'ChatGPT',m:'GPT-6.2 Astra · 6.2 Sol · 6.1 Terra',g:[0,60,120].map(a=>`<rect x="12" y="5" width="16" height="30" rx="8" fill="none" stroke="#10a37f" stroke-width="2.4" transform="rotate(${a} 20 20)"/>`).join('')},
+ {n:'DeepSeek',m:'V4 Pro · V4.1 Flash',g:'<path d="M7 22c0-6 5-10 12-10 6 0 11 3 13 8-2-1-4-1-6 0-1 5-6 8-12 8-4 0-7-2-7-6z" fill="#4d6bfe"/><path d="M31 19q3-6 7-5-1 4-3 7z" fill="#4d6bfe"/><circle cx="14" cy="19" r="1.6" fill="#fff"/>'},
+ {n:'Gemini',m:'4 Carbon · 4 Argon · 3.8 Flash',g:'<defs><linearGradient id="gmg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4285f4"/><stop offset=".55" stop-color="#9b72cb"/><stop offset="1" stop-color="#d96570"/></linearGradient></defs><path d="M20 4C21.5 14 26 18.5 36 20 26 21.5 21.5 26 20 36 18.5 26 14 21.5 4 20 14 18.5 18.5 14 20 4z" fill="url(#gmg)"/>'}];
+$('#ai').innerHTML=AI.map(x=>`<div class="ai"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#fff"/>${x.g}</svg><div><b>${x.n}</b><small class="mut">${x.m}</small></div></div>`).join('');
+
+const STARS=[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<circle cx="${(18+7.5*Math.sin(a)).toFixed(1)}" cy="${(12-7.5*Math.cos(a)).toFixed(1)}" r="1.1" fill="#fc0"/>`}).join('');
+const FLAG={EUR:`<svg class="fg" viewBox="0 0 36 24" aria-hidden="true"><rect width="36" height="24" fill="#039"/>${STARS}</svg>`,CHF:`<svg class="fg" viewBox="0 0 36 24" aria-hidden="true"><rect width="36" height="24" fill="#da291c"/><path fill="#fff" d="M15 5h6v4h5v6h-5v4h-6v-4h-5V9h5z"/></svg>`};
 const prevR={};
 const fmt=n=>n.toFixed(4).replace('.',',');
 function drawRates(R){
@@ -223,8 +293,8 @@ function drawRates(R){
  $('#rnote').className=old?'old':'';
  $('#rnote').textContent=(e&&e.approx?'srednji kurs · tržišni, okvirno':'srednji kurs NBS')+(e&&e.date?' · '+e.date.slice(8)+'.'+e.date.slice(5,7)+'.':'')+(old?' (stari podatak)':'');
  $('#rates').replaceChildren(...['EUR','CHF'].map(k=>{const v=R[k],d=document.createElement('div');d.className='rate';
-  if(!v){d.innerHTML=`<b>${k}</b><span class="err">nema podatka</span>`;return d}
-  const s=fmt(v.mid);d.innerHTML=`<b>${k}</b><strong class="${prevR[k]&&prevR[k]!==s?'flash':''}">${s.slice(0,-2)}<small>${s.slice(-2)}</small></strong>`;prevR[k]=s;return d}));
+  if(!v){d.innerHTML=`<b>${FLAG[k]||''}${k}</b><span class="err">nema podatka</span>`;return d}
+  const s=fmt(v.mid);d.innerHTML=`<b>${FLAG[k]||''}${k}</b><strong class="${prevR[k]&&prevR[k]!==s?'flash':''}">${s.slice(0,-2)}<small>${s.slice(-2)}</small></strong>`;prevR[k]=s;return d}));
 }
 async function rates(){
  let R=null;
@@ -239,11 +309,11 @@ async function rates(){
 
 /* VESTI SA SLIKAMA (RSS preko rss2json): Srbija = politika + biznis, Svet = svet + inovacije; bez crne hronike */
 const API='https://api.rss2json.com/v1/api.json?rss_url=';
-const CATS={pol:'Skupština i vlada',biz:'Biznis',svet:'Svet',inov:'Inovacije'};
-const EMO={pol:'📰',biz:'📈',svet:'🌍',inov:'💡'};
-const NS={p:{items:[],i:0},a:{items:[],i:0}};
-for(const k of['p','a']){const c=document.createElement('a');c.className='card '+k;c.id='c'+k;c.target='_blank';c.rel='noopener';
- c.innerHTML=`<div class="ph"><span></span><img alt="" referrerpolicy="no-referrer"></div><div class="tx"><span class="chip"></span><b class="hl">Učitavanje…</b><div class="body"><div class="bi"></div></div><div class="mt"></div><div class="dots"></div></div>`;$('#n').append(c)}
+const CATS={pol:'Skupština i vlada',biz:'Biznis',svet:'Svet',inov:'Inovacije',sport:'Sport'};
+const EMO={pol:'📰',biz:'📈',svet:'🌍',inov:'💡',sport:'🏀'};
+const NS={p:{items:[],i:0},a:{items:[],i:0},s:{items:[],i:0}};
+for(const k of['p','a','s']){const c=document.createElement('a');c.className='card '+k;c.id='c'+k;c.target='_blank';c.rel='noopener';
+ c.innerHTML=`<div class="ph"><span></span><img alt="" referrerpolicy="no-referrer"></div><div class="tx"><span class="chip"></span><b class="hl">Učitavanje…</b><div class="body"><div class="bi"></div></div><div class="mt"></div><div class="dots"></div></div>`;if(k==='s')$('#sp').append(c);else $('#n').insertBefore(c,$('#sp'))}
 const ago=d=>{const m=Math.round((Date.now()-d)/60000);return m<60?`pre ${Math.max(m,1)} min`:m<1440?`pre ${Math.round(m/60)} h`:`pre ${Math.round(m/1440)} d`};
 const dec=t=>{const e=document.createElement('textarea');e.innerHTML=t||'';return e.value};
 const clean=h=>{let t=plain(h).replace(/\s*(The post .+? appeared first on .+?|Read more.*|Pročitajte više.*|Pročitaj više.*)$/i,'');if(t.length>700){t=t.slice(0,700);const e=t.lastIndexOf('. ');t=e>300?t.slice(0,e+1):t.replace(/\s\S*$/,'…')}return t};
@@ -272,7 +342,7 @@ const TM={p:0,a:0};
 function advance(k){const t=NS[k];if(t.items.length>1)t.i=(t.i+1)%t.items.length;show(k)}
 /* prvo naslov, pa tekst vesti sa automatskim skrolom, pa sledeća vest */
 function play(k){
- clearTimeout(TM[k]);const c=$('#c'+k),b=c.querySelector('.body'),bi=c.querySelector('.bi');
+ clearTimeout(TM[k]);if(k==='s'){TM[k]=setTimeout(()=>advance(k),11000);return}const c=$('#c'+k),b=c.querySelector('.body'),bi=c.querySelector('.bi');
  bi.style.transition='none';bi.style.transform='translateY(0)';void bi.offsetWidth;
  const over=bi.scrollHeight-b.clientHeight,len=bi.textContent.length;
  if(!len){TM[k]=setTimeout(()=>advance(k),9000);return}
@@ -281,14 +351,61 @@ function play(k){
 function setNews(k,items){const same=NS[k].items[0]&&items[0]&&NS[k].items[0].link===items[0].link;NS[k].items=items;if(!same){NS[k].i=0;show(k)}}
 async function news(){
  q=0;
- const [pol,biz,svet,inov]=await Promise.all([gather(FEEDS.pol,'pol',i=>/kurir/.test(i.src)||POL.test(i.title+' '+i.txt.slice(0,300))),gather(FEEDS.biz,'biz'),gather(FEEDS.svet,'svet'),gather(FEEDS.inov,'inov')]);
+ const [pol,biz,svet,inov,spt]=await Promise.all([gather(FEEDS.pol,'pol',i=>/kurir/.test(i.src)||POL.test(i.title+' '+i.txt.slice(0,300))),gather(FEEDS.biz,'biz'),gather(FEEDS.svet,'svet'),gather(FEEDS.inov,'inov'),gather(FEEDS.sport,'sport')]);
+ const S=await sportNews(spt);
  let P=rr(newest(pol,4),newest(biz,4)).slice(0,8);const A=rr(newest(svet,4),newest(inov,4)).slice(0,8);
  if(!P.length)try{const g=await(await fetch(API+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent('Skupština Srbije vlada when:3d')+'&hl=sr&gl=RS&ceid=RS:sr'))).json();
   P=g.items.map(i=>{const x=i.title.lastIndexOf(' - ');return{title:dec(x>0?i.title.slice(0,x):i.title),src:x>0?i.title.slice(x+3):'',link:i.link,img:'',cat:'pol',date:new Date(i.pubDate.replace(' ','T')+'Z')}}).sort((x,y)=>y.date-x.date).slice(0,6)}catch{}
- for(const [k,v] of [['p',P],['a',A]]){
+ for(const [k,v] of [['p',P],['a',A],['s',S]]){
   if(v.length){LS.set('n'+k,v);setNews(k,v)}
   else if(!NS[k].items.length){const c=LS.get('n'+k);if(c)setNews(k,c.map(i=>({...i,date:new Date(i.date)})));else $('#c'+k+' .hl').textContent='Vesti trenutno nisu dostupne'}}
 }
+
+
+/* SPORT: vesti (srpski izvori + Google News za Partizan i Steelers), pa rezultati */
+const FAV=/partizan|evroliga|euroleague|steelers|stilers|pitsburg|pittsburgh|nfl/i;
+const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function gnews(qs,cat){await new Promise(r=>setTimeout(r,(q++)*300));const g=await(await fetch(API+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent(qs)+'&hl=sr&gl=RS&ceid=RS:sr'))).json();if(g.status&&g.status!=='ok')throw 0;
+ return g.items.map(i=>{const x=i.title.lastIndexOf(' - ');return{title:dec(x>0?i.title.slice(0,x):i.title),src:x>0?i.title.slice(x+3):'',link:i.link,img:'',txt:'',cat,date:new Date(i.pubDate.replace(' ','T')+'Z')}}).filter(i=>!isNaN(i.date)&&!BLACK.test(i.title))}
+async function sportNews(spt){
+ const [a,b]=await Promise.all([gnews('KK Partizan Evroliga when:3d','sport').catch(()=>[]),gnews('Pittsburgh Steelers NFL when:3d','sport').catch(()=>[])]);
+ const fav=newest([...a,...b,...spt].filter(i=>FAV.test(i.title)),3);
+ return uniq([...fav,...newest(spt,6)]).slice(0,8)}
+
+const SPD={};
+const dfmt=d=>d.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'numeric'});
+const tfmt=d=>d.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit',hour12:false});
+async function jget(u){for(const f of [x=>x,x=>'https://api.allorigins.win/raw?url='+encodeURIComponent(x)]){try{const r=await fetch(f(u),{cache:'no-store'});if(r.ok)return await r.text()}catch{}}throw 0}
+const pick=(all,now)=>{all.sort((a,b)=>a.d-b.d);const done=all.filter(g=>g.done);return{last:done[done.length-1],next:all.find(g=>!g.done&&g.d>now-3*36e5)}};
+async function euro(){
+ const n=new Date(),y=n.getMonth()>=7?n.getFullYear():n.getFullYear()-1;
+ const t=await jget('https://api-live.euroleague.net/v1/schedules?seasonCode=E'+y);let rows;
+ if(t.trim()[0]==='<')rows=[...new DOMParser().parseFromString(t,'text/xml').querySelectorAll('item')].map(it=>Object.fromEntries([...it.children].map(c=>[c.tagName.toLowerCase(),c.textContent.trim()])));
+ else{const j=JSON.parse(t);rows=(Array.isArray(j)?j:j.item||j.data||j.games||[]).map(r=>Object.fromEntries(Object.entries(r).map(([k,v])=>[k.toLowerCase(),String(v==null?'':v).trim()])))}
+ const all=[];
+ for(const o of rows){const home=/^PAR$/i.test(o.homecode)||/partizan/i.test(o.hometeam),away=/^PAR$/i.test(o.awaycode)||/partizan/i.test(o.awayteam);if(!home&&!away)continue;
+  const d=new Date(o.date);if(isNaN(d))continue;const m=(o.startime||'').match(/(\d{1,2}):(\d{2})/);if(m)d.setHours(+m[1],+m[2]);
+  const hs=+o.homescore||0,as=+o.awayscore||0,done=/^true$/i.test(o.played)||(hs+as>0&&d<n-2*36e5);
+  all.push({d,home,opp:home?o.awayteam:o.hometeam,us:home?hs:as,them:home?as:hs,done})}
+ if(!all.length)throw 0;return pick(all,n)}
+const scv=x=>x==null?0:typeof x==='object'?+(x.displayValue||x.value||0):+x||0;
+async function nfl(){
+ const j=JSON.parse(await jget('https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/pit/schedule')),all=[];
+ for(const e of j.events||[]){try{const c=e.competitions[0],me=c.competitors.find(x=>x.team.abbreviation==='PIT'||/steelers/i.test(x.team.displayName||'')),op=c.competitors.find(x=>x!==me);
+  all.push({d:new Date(e.date),home:me.homeAway==='home',opp:op.team.shortDisplayName||op.team.displayName,us:scv(me.score),them:scv(op.score),done:!!(c.status&&c.status.type&&c.status.type.completed)})}catch{}}
+ if(!all.length)throw 0;return pick(all,new Date())}
+function drawSp(){
+ const T=[['🏀','Partizan','Evroliga',SPD.eur],['🏈','Steelers','NFL',SPD.nfl]];
+ $('#res').innerHTML=T.map(([ic,nm,lg,d])=>{
+  if(!d||(!d.last&&!d.next))return `<div class="tm"><i>${ic}</i><b>${nm}</b><small class="mut">${lg} · nema podataka</small></div>`;
+  const L=d.last,N=d.next,ld=L&&new Date(L.d),nd=N&&new Date(N.d);
+  const l=L?`<b>${nm} <span class="${L.us>L.them?'w':L.us<L.them?'l':''}">${L.us}:${L.them}</span> ${esc(L.opp)}</b><em>${dfmt(ld)}</em>`:`<b>${nm}</b><em></em>`;
+  const n=N?`${lg} · sledeća ${dfmt(nd)} ${tfmt(nd)} · ${N.home?'vs':'@'} ${esc(N.opp)}`:`${lg} · nema zakazane utakmice`;
+  return `<div class="tm"><i>${ic}</i>${l}<small class="mut">${n}</small></div>`}).join('')}
+async function sports(){
+ const r=await Promise.allSettled([euro(),nfl()]);
+ ['eur','nfl'].forEach((k,i)=>{const c=LS.get('sp:'+k);if(r[i].status==='fulfilled'){SPD[k]=r[i].value;LS.set('sp:'+k,r[i].value)}else if(c)SPD[k]=c});
+ drawSp()}
 
 /* PROVERA SAJTA */
 async function ping(){
@@ -306,6 +423,14 @@ async function ping(){
  code>=500?set('down','greška '+code):set('ok','radi · '+ms+' ms');
 }
 
+
+/* lofi scena: kiša, zvezde, prozori grada */
+(function(){const R=(a,b)=>a+Math.random()*(b-a),f=n=>n.toFixed(2);let a='',b='',c='';
+ for(let n=0;n<18;n++)a+=`<circle class="lf-st" cx="${f(R(198,262))}" cy="${f(R(22,52))}" r="${f(R(.5,1.1))}" style="animation-duration:${f(R(2,5))}s;animation-delay:-${f(R(0,5))}s"/>`;
+ for(let n=0;n<22;n++)b+=`<rect class="lf-win" x="${f(R(200,288))}" y="${f(R(68,92))}" width="2" height="2.6" style="animation-duration:${f(R(3,8))}s;animation-delay:-${f(R(0,8))}s"/>`;
+ for(let n=0;n<18;n++){const x=R(198,292);c+=`<line class="lf-rain" x1="${f(x)}" y1="20" x2="${f(x-3)}" y2="30" style="animation-duration:${f(R(.8,1.3))}s;animation-delay:-${f(R(0,1.4))}s"/>`}
+ $('#lst').innerHTML=a;$('#lwn').innerHTML=b;$('#lrain').innerHTML=c})();
+
 /* PLAYER: Lofi (YouTube) / Radio (Banker, direktan stream) / Knjige (YouTube, pamti poziciju) */
 const IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
 let yt,ytBad=false,ytWhy='',nc=false,fails=0,busy=false;
@@ -314,7 +439,7 @@ const G={lofi:()=>ytBad?[LOFIR]:LOFI.concat([LOFIR]),radio:()=>[{r:'banker',name
 let grp=G[LS.get('grp')]?LS.get('grp'):'lofi',idx=LS.get('idx:'+grp)||0;
 const list=()=>G[grp](),cur=()=>list()[idx];
 const isR=()=>{const t=cur();return t&&t.r};
-const setPlaying=on=>{$('#pp').innerHTML=on?IC.pause:IC.play;$('#eq').classList.toggle('on',on);$('#beq').classList.toggle('on',on)};
+const setPlaying=on=>{$('#pp').innerHTML=on?IC.pause:IC.play;$('#eq').classList.toggle('on',on);$('#beq').classList.toggle('on',on);$('#leq').classList.toggle('on',on)};
 const au=new Audio();au.preload='none';
 au.onplaying=()=>{if(isR())setPlaying(true)};au.onpause=()=>{if(isR())setPlaying(false)};
 au.onerror=()=>{if(isR()&&au.getAttribute('src'))setPlaying(false)};
@@ -356,7 +481,7 @@ function apply(play){
  if(yt&&yt.pauseVideo)try{yt.pauseVideo()}catch{}
  stopAu();$('#efr').src='about:blank';setPlaying(false);
  const yty=!!(t&&(t.y||t.pl)),emb=!!(t&&t.embed),rad=!!(t&&t.r);
- $('#ywrap').hidden=!yty||ytBad;$('#ewrap').hidden=!emb;$('#rcard').hidden=!rad;
+ const lo=LOFI_SCENE&&grp==='lofi'&&!emb&&!!t;$('#ywrap').hidden=!yty||ytBad;$('#ewrap').hidden=!emb;$('#rcard').hidden=!rad||lo;$('#lcard').hidden=!lo;
  $('#pp').hidden=$('#vol').hidden=emb||!t||(yty&&ytBad);$('#eq').hidden=emb||!t;$('#pw').hidden=!t;
  if(!t){$('#ttl').innerHTML=`Dodaj knjigu sa + · <a href="https://www.youtube.com/results?search_query=${encodeURIComponent('Od pašnjaka do naučenjaka audio knjiga')}" target="_blank" rel="noopener" style="color:var(--gold)">traži Pupina</a>`;return}
  if(emb){$('#efr').src=t.embed;$('#ttl').innerHTML=`${t.name} · <a href="${t.url}" target="_blank" rel="noopener" style="color:var(--gold)">otvori u pregledaču</a>`;return}
@@ -392,7 +517,7 @@ function mkPlayer(hostUrl){
    if(c===1){fails=0;setPlaying(true);try{const d=yt.getVideoData();$('#ttl').textContent=(grp==='knjige'?t.name+' · ':'')+(d.title||t.name)}catch{}}
    else if(c===2)setPlaying(false);else if(c===0&&t.y&&list().length>1)go(1)},
   onError(e){const t=cur();if(!t||!(t.y||t.pl))return;const c=e.data;
-   if(c===100||c===101||c===150){
+   if(c===2||c===100||c===101||c===150){
     if(grp==='knjige')$('#ttl').innerHTML=`Greška ${c}: video ne dozvoljava ugrađivanje · ${ytLink(t,'otvori na YouTube-u')}`;
     else if(list().length>1&&++fails<list().length)go(1);else{ytBad=true;ytWhy=(typeof c==='undefined'?'skripta':c);apply(false)}}
    else if(!nc){nc=true;mkPlayer('https://www.youtube-nocookie.com')}
@@ -412,10 +537,10 @@ addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test((e.target||{}).tagName||
  else if(k==='1'||k==='2'||k==='3')document.querySelectorAll('#tabs button')[+k-1].click()});
 
 /* POKRETANJE */
-weather();rates();news();ping();
-setInterval(applyPhase,5*60e3);setInterval(weather,15*60e3);setInterval(rates,30*60e3);setInterval(news,15*60e3);setInterval(ping,2*60e3);
+weather();rates();news();ping();sports();
+setInterval(applyPhase,5*60e3);setInterval(weather,15*60e3);setInterval(rates,30*60e3);setInterval(news,15*60e3);setInterval(ping,2*60e3);setInterval(sports,10*60e3);
 async function wake(){try{await navigator.wakeLock.request('screen')}catch{}}
-wake();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){wake();weather();rates();news();ping()}});
+wake();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){wake();weather();rates();news();ping();sports()}});
 if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('click',async()=>{if(document.fullscreenElement||matchMedia('(display-mode: fullscreen)').matches)return;try{await document.documentElement.requestFullscreen({navigationUI:'hide'});await screen.orientation.lock('landscape')}catch{}});
 </script></body></html>
