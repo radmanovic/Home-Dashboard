@@ -145,10 +145,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:.5vh solid var(
 <script>
 /* PODEŠAVANJA */
 const LOFI=[{y:'jfKfPfyJRdk',name:'Lofi radio'},{y:'4xDzrJKXOOY',name:'Synthwave radio'},{y:'5qap5aO4i9A',name:'Lofi sleep/chill'}]; // YouTube ID-jevi
-const LOFI_FALLBACK={embed:'https://tunein.com/embed/player/s352697/',name:'Lofi radio',url:'https://tunein.com/radio/LOFI-RADIO-s352697'}; // koristi se ako YouTube ne dozvoli ugrađivanje
-const BANKER_STREAM='';   // ako znaš direktan link ka stream-u Banker radija, upiši ga ovde (ima prednost)
+const BANKER_STREAM='https://banker96-naxinacional.streaming.rs:8542/;'; // direktan stream Banker radija (izvor: myradiostanice.rs)
 const BANKER_PLS='https://radiobanker.rs/wp-content/uploads/bankerradio.pls';
-const BANKER_EMBED='https://tuningaradio.com/embed/pguvMnvD/'; // rezerva ako stream ne krene
+const RADIOS={banker:{urls:[BANKER_STREAM,BANKER_STREAM+'stream.mp3'],rb:'name=banker&countrycode=RS',pls:BANKER_PLS},lofi:{urls:[],rb:'tag=lofi',pls:''}}; // direktni stream-ovi; rb = pretraga u Radio Browser bazi
 const BOOKS=[];           // audio knjige: {y:'VIDEO_ID',name:'Naslov'} ili {pl:'PLAYLIST_ID',name:'Naslov'}; mogu se dodati i u aplikaciji tasterom +
 const FEEDS={
  pol:['https://www.kurir.rs/rss/vesti/politika','https://www.danas.rs/feed/','https://n1info.rs/feed/'],
@@ -309,8 +308,9 @@ async function ping(){
 
 /* PLAYER: Lofi (YouTube) / Radio (Banker, direktan stream) / Knjige (YouTube, pamti poziciju) */
 const IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'};
-let yt,ytBad=false,nc=false,fails=0,cands=null,busy=false;
-const G={lofi:()=>ytBad?[LOFI_FALLBACK]:LOFI,radio:()=>[{r:1,name:'Banker radio',sub:'Niš · 98.3 FM'}],knjige:()=>BOOKS.concat(LS.get('books')||[])};
+let yt,ytBad=false,ytWhy='',nc=false,fails=0,busy=false;
+const LOFIR={r:'lofi',name:'Lofi radio · direktan stream',sub:'bez YouTube-a'};
+const G={lofi:()=>ytBad?[LOFIR]:LOFI.concat([LOFIR]),radio:()=>[{r:'banker',name:'Banker radio',sub:'Niš · 98.3 FM'}],knjige:()=>BOOKS.concat(LS.get('books')||[])};
 let grp=G[LS.get('grp')]?LS.get('grp'):'lofi',idx=LS.get('idx:'+grp)||0;
 const list=()=>G[grp](),cur=()=>list()[idx];
 const isR=()=>{const t=cur();return t&&t.r};
@@ -323,26 +323,28 @@ const v0=LS.get('vol')??60;$('#vol').value=v0;au.volume=v0/100;
 $('#vol').oninput=e=>{const v=+e.target.value;LS.set('vol',v);au.volume=v/100;if(yt&&yt.setVolume)yt.setVolume(v)};
 const ytLink=(t,txt)=>`<a href="https://www.youtube.com/${t.y?'watch?v='+t.y:'playlist?list='+t.pl}" target="_blank" rel="noopener" style="color:var(--gold)">${txt}</a>`;
 
-/* Banker radio: direktan stream iz Radio Browser baze, pa iz .pls fajla; ako ništa ne radi, rezervni plejer */
-async function plsUrl(){
- for(const f of [u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?url='+encodeURIComponent(u)]){
-  try{const t=await(await fetch(f(BANKER_PLS),{cache:'no-store'})).text(),m=t.match(/^File1=(.+)$/mi);if(m)return m[1].trim()}catch{}}
+/* direktni radio stream-ovi (bez ugrađenih plejera): poznati linkovi, pa Radio Browser baza, pa .pls */
+const cands={};
+async function plsUrl(u){
+ for(const f of [x=>x,x=>'https://api.allorigins.win/raw?url='+encodeURIComponent(x),x=>'https://corsproxy.io/?url='+encodeURIComponent(x)]){
+  try{const t=await(await fetch(f(u),{cache:'no-store'})).text(),m=t.match(/^File1=(.+)$/mi);if(m)return m[1].trim()}catch{}}
  return''}
-async function resolveRadio(){
- const u=[];if(BANKER_STREAM)u.push(BANKER_STREAM);
- for(const h of['de1','nl1','at1']){try{const j=await(await fetch(`https://${h}.api.radio-browser.info/json/stations/search?name=banker&countrycode=RS&hidebroken=true&order=clickcount&reverse=true&limit=6`)).json();if(Array.isArray(j)&&j.length){j.forEach(x=>u.push(x.url_resolved||x.url));break}}catch{}}
- u.push(await plsUrl());
+async function resolveRadio(key){
+ const R=RADIOS[key],c=LS.get('custom:'+key),u=[...(c?[c]:[]),...R.urls];
+ for(const h of['de1','nl1','at1']){try{const j=await(await fetch(`https://${h}.api.radio-browser.info/json/stations/search?${R.rb}&hidebroken=true&order=clickcount&reverse=true&limit=8`)).json();if(Array.isArray(j)&&j.length){j.forEach(x=>u.push(x.url_resolved||x.url));break}}catch{}}
+ if(R.pls)u.push(await plsUrl(R.pls));
  const out=[];for(const x of u){if(!x)continue;const sec=x.replace(/^http:/,'https:');if(!out.includes(sec))out.push(sec);if(sec!==x&&location.protocol!=='https:'&&!out.includes(x))out.push(x)}
- return out}
-const tryPlay=u=>{au.src=u;return Promise.race([au.play().then(()=>true),new Promise(r=>setTimeout(()=>r(false),8000))]).catch(()=>false)};
+ return out.slice(0,8)}
+const tryPlay=u=>{au.src=u;return Promise.race([au.play().then(()=>true),new Promise(r=>setTimeout(()=>r(false),7000))]).catch(()=>false)};
 async function radio(){
- if(busy)return;busy=true;$('#ttl').textContent='Banker radio · povezivanje…';
+ const t=cur(),key=t&&t.r;if(!key||busy)return;busy=true;$('#ttl').textContent=t.name+' · povezivanje…';
  try{
-  const saved=LS.get('rurl');if(!cands)cands=await resolveRadio();
-  const c=[...new Set([...(saved?[saved]:[]),...cands])];let ok=false;
-  for(const u of c){if(await tryPlay(u)){ok=true;LS.set('rurl',u);break}stopAu()}
-  if(ok)$('#ttl').textContent='Banker radio · uživo · Niš 98.3 FM';
-  else{$('#rcard').hidden=true;$('#ewrap').hidden=false;$('#efr').src=BANKER_EMBED;$('#pp').hidden=$('#vol').hidden=true;$('#ttl').textContent=c.length?'Stream ne svira · rezervni plejer (dodirni play u okviru)':'Stream nije pronađen · rezervni plejer (dodirni play u okviru)'}
+  const saved=LS.get('rurl:'+key);if(!cands[key])cands[key]=await resolveRadio(key);
+  const c=[...new Set([...(saved?[saved]:[]),...cands[key]])];let ok=false;
+  for(const u of c){if(await tryPlay(u)){ok=true;LS.set('rurl:'+key,u);break}stopAu()}
+  if(ok)$('#ttl').textContent=t.name+' · uživo';
+  else{$('#ttl').innerHTML=`Stream ne svira (probano ${c.length}) · <a href="#" id="setu" style="color:var(--gold)">upiši link</a>`;
+   $('#setu').onclick=e=>{e.preventDefault();const u=prompt('Nalepi direktan link stream-a (mp3/aac):');if(u){LS.set('custom:'+key,u.trim());LS.set('rurl:'+key,null);cands[key]=null;radio()}}}
  }catch{}
  busy=false}
 
@@ -358,8 +360,8 @@ function apply(play){
  $('#pp').hidden=$('#vol').hidden=emb||!t||(yty&&ytBad);$('#eq').hidden=emb||!t;$('#pw').hidden=!t;
  if(!t){$('#ttl').innerHTML=`Dodaj knjigu sa + · <a href="https://www.youtube.com/results?search_query=${encodeURIComponent('Od pašnjaka do naučenjaka audio knjiga')}" target="_blank" rel="noopener" style="color:var(--gold)">traži Pupina</a>`;return}
  if(emb){$('#efr').src=t.embed;$('#ttl').innerHTML=`${t.name} · <a href="${t.url}" target="_blank" rel="noopener" style="color:var(--gold)">otvori u pregledaču</a>`;return}
- if(rad){$('#ttl').textContent=t.name+' · '+t.sub;if(play)radio();return}
- if(ytBad){$('#ttl').innerHTML=`YouTube ne dozvoljava ugrađeni plejer (greška 153) · ${ytLink(t,'otvori na YouTube-u')}`;return}
+ if(rad){$('#ttl').textContent=t.name+' · '+(t.r==='lofi'&&ytWhy?'YouTube greška '+ytWhy:t.sub);if(play)radio();return}
+ if(ytBad){$('#ttl').innerHTML=`YouTube ne dozvoljava ugrađeni plejer (greška ${ytWhy||'?'}) · ${ytLink(t,'otvori na YouTube-u')}`;return}
  $('#ttl').textContent=t.name;
  if(!yt||!yt.loadVideoById)return;
  const pos=grp==='knjige'&&t.y?(LS.get('pos:'+t.y)||0):0;
@@ -379,7 +381,8 @@ setInterval(()=>{const t=cur();if(grp==='knjige'&&t&&t.y&&yt&&yt.getPlayerState&
 
 /* YouTube plejer */
 const PV={controls:0,modestbranding:1,playsinline:1,rel:0,disablekb:1,fs:0,iv_load_policy:3};
-if(location.protocol.startsWith('http'))PV.origin=location.origin;
+if(location.protocol==='https:')PV.origin=location.origin;
+if(location.protocol.startsWith('http'))PV.widget_referrer=location.href;
 function mkPlayer(hostUrl){
  if(yt&&yt.destroy)try{yt.destroy()}catch{}
  $('#ywrap').innerHTML='<div id="yt"></div>';
@@ -391,15 +394,15 @@ function mkPlayer(hostUrl){
   onError(e){const t=cur();if(!t||!(t.y||t.pl))return;const c=e.data;
    if(c===100||c===101||c===150){
     if(grp==='knjige')$('#ttl').innerHTML=`Greška ${c}: video ne dozvoljava ugrađivanje · ${ytLink(t,'otvori na YouTube-u')}`;
-    else if(list().length>1&&++fails<list().length)go(1);else{ytBad=true;apply(false)}}
+    else if(list().length>1&&++fails<list().length)go(1);else{ytBad=true;ytWhy=(typeof c==='undefined'?'skripta':c);apply(false)}}
    else if(!nc){nc=true;mkPlayer('https://www.youtube-nocookie.com')}
-   else{ytBad=true;apply(false)}}}};
+   else{ytBad=true;ytWhy=(typeof c==='undefined'?'skripta':c);apply(false)}}}};
  if(hostUrl)o.host=hostUrl;
  yt=new YT.Player('yt',o)}
 window.onYouTubeIframeAPIReady=()=>mkPlayer();
 if(location.protocol==='file:')ytBad=true;
 apply(false);
-if(!ytBad){const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{ytBad=true;apply(false)};document.head.append(sc)}
+if(!ytBad){const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{ytBad=true;ytWhy=(typeof c==='undefined'?'skripta':c);apply(false)};document.head.append(sc)}
 
 /* tastatura i daljinski (TV): razmak/Play-Pause, Next/Prev, 1-2-3 menjaju grupu */
 addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test((e.target||{}).tagName||''))return;const k=e.key;
